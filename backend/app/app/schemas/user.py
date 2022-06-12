@@ -24,6 +24,7 @@ class UserUpdate(UserBase):
 
 class UserInDBBase(UserBase):
     id: str
+    _id: str
 
     class Config:
         orm_mode = True

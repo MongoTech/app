@@ -1,4 +1,4 @@
-from app import crud, schemas
+from app import crud
 from app.core.config import settings
 from app.db import base  # noqa: F401
 
@@ -10,6 +10,6 @@ async def init_db(db) -> None:
             "email": settings.FIRST_SUPERUSER,
             "password": settings.FIRST_SUPERUSER_PASSWORD,
             "is_superuser": True,
-            "full_name": "Admin"
+            "full_name": "Admin",
         }
         user = await crud.user.create(db, obj_in=user_in)  # noqa: F841

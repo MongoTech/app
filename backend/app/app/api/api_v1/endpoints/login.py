@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import Any
 from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session  # type: ignore
 from app import crud, models, schemas
 from app.api import deps
 from app.core import security
@@ -34,7 +34,7 @@ async def login_access_token(
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     return {
         "access_token": security.create_access_token(
-            user["_id"], expires_delta=access_token_expires
+            user["_id"], expires_delta=access_token_expires  # type: ignore
         ),
         "token_type": "bearer",
     }
@@ -49,11 +49,11 @@ def test_token(current_user: models.User = Depends(deps.get_current_user)) -> An
 
 
 @router.post("/password-recovery/{email}", response_model=schemas.Msg)
-def recover_password(email: str, db: Session = Depends(deps.get_db)) -> Any:
+async def recover_password(email: str, db: Session = Depends(deps.get_db)) -> Any:
     """
     Password Recovery
     """
-    user = crud.user.get_by_email(db, email=email)
+    user = await crud.user.get_by_email(db, email=email)
 
     if not user:
         raise HTTPException(
@@ -62,13 +62,13 @@ def recover_password(email: str, db: Session = Depends(deps.get_db)) -> Any:
         )
     password_reset_token = generate_password_reset_token(email=email)
     send_reset_password_email(
-        email_to=user.email, email=email, token=password_reset_token
+        email_to=user["email"], email=email, token=password_reset_token  # type: ignore
     )
     return {"msg": "Password recovery email sent"}
 
 
 @router.post("/reset-password/", response_model=schemas.Msg)
-def reset_password(
+async def reset_password(
     token: str = Body(...),
     new_password: str = Body(...),
     db: Session = Depends(deps.get_db),
@@ -79,16 +79,16 @@ def reset_password(
     email = verify_password_reset_token(token)
     if not email:
         raise HTTPException(status_code=400, detail="Invalid token")
-    user = crud.user.get_by_email(db, email=email)
+    user = await crud.user.get_by_email(db, email=email)
     if not user:
         raise HTTPException(
             status_code=404,
             detail="The user with this username does not exist in the system.",
         )
-    elif not crud.user.is_active(user):
+    elif not crud.user.is_active(user):  # type: ignore
         raise HTTPException(status_code=400, detail="Inactive user")
     hashed_password = get_password_hash(new_password)
-    user.hashed_password = hashed_password
-    db.add(user)
-    db.commit()
+    await crud.user.update(
+        db=db, db_obj=user, obj_in={"hashed_password": hashed_password}
+    )
     return {"msg": "Password updated successfully"}

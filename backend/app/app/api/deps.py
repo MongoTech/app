@@ -2,9 +2,9 @@ from typing import Generator
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt
+from jose import jwt  # type: ignore
 from pydantic import ValidationError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session  # type: ignore
 
 from app import crud, models
 from app.core import security
@@ -32,7 +32,10 @@ async def get_current_user(
         )
         token_data = payload
     except (jwt.JWTError, ValidationError) as e:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Could not validate credentials",) from e
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Could not validate credentials",
+        ) from e
 
     user = await crud.user.get(db, id=token_data["sub"])
     if not user:
