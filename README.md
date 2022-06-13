@@ -23,7 +23,7 @@ You need add keys [here](https://gitlab.com/-/profile/keys) [instruction how to 
 ## Verfify python version
 
 `python --version` <br />
-Python 3.9.12`
+`Python 3.9.12`
 
 ## Run docker-compose
 `docker-compose up -d`
