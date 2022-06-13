@@ -4,12 +4,13 @@
 
 * [Docker+Docker Compose](https://www.docker.com/ + https://docs.docker.com/compose/install/).
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Python 3.9] (https://www.python.org/downloads/release/python-3913/)
+* [Python 3.9](https://www.python.org/downloads/release/python-3913/)
 
 Later you will need:
-* NodeJS 16 (https://nodejs.org/en/)
+* [NodeJS 16](https://nodejs.org/en/)
 
-## Frontend Requirements
+## Add ssh-keys for you profile
+You need add keys [here][instruction how to generate](https://coderlessons.com/tutorials/devops/vyuchit-gitlab/gitlab-nastroika-kliucha-ssh)
 
 * Node.js (with `npm`).
 
