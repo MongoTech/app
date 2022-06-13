@@ -41,3 +41,12 @@ poetry install`
 
 ## Run application
 `python main.py`
+
+## For api testing you need postpam
+
+[Postman](https://www.postman.com/downloads/)
+
+# Configure first request Get Token
+[get token request](/mongodb.tech/app/-/raw/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
+
+
