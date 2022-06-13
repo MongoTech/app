@@ -21,10 +21,9 @@ You need add keys [here](https://gitlab.com/-/profile/keys) [instruction how to 
 `source ./venv/bin/activate`
 
 ## Verfify python version
-`
-python --version <br />
-Python 3.9.12
-`
+
+`python --version` <br />
+Python 3.9.12`
 
 ## Run docker-compose
 `docker-compose up -d`
