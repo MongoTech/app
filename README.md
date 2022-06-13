@@ -48,5 +48,8 @@ poetry install`
 
 # Configure first request Get Token
 [get token request](https://gitlab.com/mongodb.tech/app/-/raw/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
+[add tests to save token](https://gitlab.com/mongodb.tech/app/-/blob/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
+
+In enviroment you need to define HOST = http://localhost:8001/api/v1 and pickup username and password from .env file
 
 
