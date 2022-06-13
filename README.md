@@ -16,13 +16,13 @@ You need add keys [here](https://gitlab.com/-/profile/keys) [instruction how to 
 `git clone git@gitlab.com:mongodb.tech/app.git`
 
 ## Install venv
-`cd app`
-`python3.9 -m venv venv`
+`cd app` <br />
+`python3.9 -m venv venv` <br />
 `source ./venv/bin/activate`
 
 ## Verfify python version
 `
-python --version
+python --version <br />
 Python 3.9.12
 `
 
