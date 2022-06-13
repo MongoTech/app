@@ -16,10 +16,9 @@ You need add keys [here](https://gitlab.com/-/profile/keys) [instruction how to 
 `git clone git@gitlab.com:mongodb.tech/app.git`
 
 ## Install venv
-`cd app
-python3.9 -m venv venv
-source ./venv/bin/activate 
-`
+`cd app`
+`python3.9 -m venv venv`
+`source ./venv/bin/activate`
 
 ## Verfify python version
 `
@@ -36,8 +35,8 @@ Main thing is monga and provisioning
 `pip install poetry`
 
 ## Install poetry dependencies
-`cd backend\app\app
-poetry install`
+`cd backend\app\app`
+`poetry install`
 
 ## Run application
 `python main.py`
