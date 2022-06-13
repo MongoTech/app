@@ -1,10 +1,13 @@
 # app.monogdb.tech
 
-## run tests
+## Before you start you needd
 
-* [Docker](https://www.docker.com/).
-* [Docker Compose](https://docs.docker.com/compose/install/).
-* [Poetry](https://python-poetry.org/) for Python package and environment management.
+* [Docker+Docker Compose](https://www.docker.com/ + https://docs.docker.com/compose/install/).
+* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [Python 3.9] (https://www.python.org/downloads/release/python-3913/)
+
+Later you will need:
+* NodeJS 16 (https://nodejs.org/en/)
 
 ## Frontend Requirements
 
