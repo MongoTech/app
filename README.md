@@ -5,6 +5,7 @@
 * [Docker+Docker Compose](https://www.docker.com/ + https://docs.docker.com/compose/install/).
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Python 3.9](https://www.python.org/downloads/release/python-3913/)
+* pip install --upgrade pip
 
 Later you will need:
 * [NodeJS 16+npm](https://nodejs.org/en/)
