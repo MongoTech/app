@@ -1,0 +1,26 @@
+image: python:3.9
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+stages:
+  - test
+
+before_script:
+  - python --version  # For debugging
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+
+unit-test:
+  stage: test
+  script:
+    - pip install pytest pytest-cov
+    - python -m pytest --cov-report=html --cov=backend/app/app .
+  artifacts:
+    expire_in: 1 days
