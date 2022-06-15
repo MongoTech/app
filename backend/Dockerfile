@@ -12,10 +12,7 @@ WORKDIR /code/app
 COPY --from=requirements-stage /tmp/requirements.txt /code/app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/app/requirements.txt
 
-ENV C_FORCE_ROOT=1
-
-COPY ./app /code/app
-RUN chmod +x /code/app/worker-start.sh
-
+COPY ./app/app /code/app/app
+EXPOSE 8001
 ENV PYTHONPATH "/code/app"
-CMD ["bash", "/code/app/worker-start.sh"]
+CMD ["python", "/code/app/app/main.py"]
