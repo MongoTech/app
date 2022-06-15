@@ -1,0 +1,18 @@
+stages:
+    - test
+
+
+Mypy:
+    stage: test
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+    script:
+        - pip install mypy
+        - mypy backend/app/app
+
+unit-test:
+  stage: test
+  script:
+    - pip install pytest pytest-cov
+    - python -m pytest --cov-report=html --cov=backend/app/app .
+  artifacts:
+    expire_in: 1 days

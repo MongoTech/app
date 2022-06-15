@@ -1,10 +1,10 @@
-FROM python:3.9 as requirements-stage
+FROM arm64v8/python:3.9 as requirements-stage
 WORKDIR /tmp
 RUN pip install poetry
 COPY ./app/pyproject.toml ./app/poetry.lock* /tmp/
 RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
-FROM python:3.9
+FROM arm64v8/python:3.9
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -12,10 +12,7 @@ WORKDIR /code/app
 COPY --from=requirements-stage /tmp/requirements.txt /code/app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/app/requirements.txt
 
-ENV C_FORCE_ROOT=1
-
-COPY ./app /code/app
-RUN chmod +x /code/app/worker-start.sh
-
+COPY ./app/app /code/app/app
+EXPOSE 8001
 ENV PYTHONPATH "/code/app"
-CMD ["bash", "/code/app/worker-start.sh"]
+CMD ["python", "/code/app/app/main.py"]
