@@ -1,17 +1,16 @@
 stages:
     - test
 
-
-Mypy:
+Isort:
     stage: test
     image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
     script:
-        - pip install mypy
-        - mypy backend/app/app
+        - pip install isort
+        - isort backend/app/app
     after_script:
-        - ./docs/get-updated-badge-mypy.sh
+        - ./docs/get-updated-badge-isort.sh
     artifacts:
         paths:
-            - badges-mypy.json
+            - ./isort-badges.json
         when: always
-        expire_in: 4 weeks
+        expire_in: 1 weeks
