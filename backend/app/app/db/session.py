@@ -1,4 +1,4 @@
-import motor.motor_asyncio
+import motor.motor_asyncio  # type: ignore
 import asyncio
 
 MONGODB_URL = "mongodb://root:mongo@localhost:27017/?authMechanism=DEFAULT"

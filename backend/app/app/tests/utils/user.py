@@ -1,6 +1,6 @@
 from typing import Dict
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session  # type: ignore
 import random
 from app import crud
 from app.core.config import settings
@@ -64,7 +64,7 @@ async def authentication_token_from_email(
     user = await crud.user.get_by_email(db, email=email)
     if not user:
         user_in_create = UserCreate(username=email, email=email, password=password)
-        user = await crud.user.create(db, obj_in=user_in_create)
+        user = await crud.user.create(db, obj_in=user_in_create)  # type: ignore
     else:
         user_in_update = UserUpdate(password=password)
         user = await crud.user.update(db, db_obj=user, obj_in=user_in_update)

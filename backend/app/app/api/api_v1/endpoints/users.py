@@ -2,7 +2,7 @@ from typing import Any, List
 from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session  # type: ignore
 from app import crud, models, schemas
 from app.api import deps
 from app.core.config import settings
@@ -21,7 +21,7 @@ async def read_users(
     """
     Retrieve users.
     """
-    users = await crud.user.get_multi(db, skip=skip, limit=limit)
+    users = await crud.user.get_multi(db, skip=skip, limit=limit)  # type: ignore
     return users
 
 
@@ -106,7 +106,7 @@ def create_user_open(
             detail="The user with this username already exists in the system",
         )
     user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
-    user = crud.user.create(db, obj_in=user_in)
+    user = crud.user.create(db, obj_in=user_in)  # type: ignore
     return user
 
 
@@ -140,11 +140,11 @@ def update_user(
     """
     Update a user.
     """
-    user = crud.user.get(db, id=user_id)
+    user = crud.user.get(db, id=user_id)  # type: ignore
     if not user:
         raise HTTPException(
             status_code=404,
             detail="The user with this username does not exist in the system",
         )
-    user = crud.user.update(db, db_obj=user, obj_in=user_in)
+    user = crud.user.update(db, db_obj=user, obj_in=user_in)  # type: ignore
     return user

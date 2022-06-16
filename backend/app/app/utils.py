@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-import emails
-from emails.template import JinjaTemplate
-from jose import jwt
+import emails  # type: ignore
+from emails.template import JinjaTemplate  # type: ignore
+from jose import jwt  # type: ignore
 
 from app.core.config import settings
 

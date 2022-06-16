@@ -1,8 +1,8 @@
 from typing import Dict, Generator
 
-import pytest
-from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
+import pytest  # type: ignore
+from fastapi.testclient import TestClient  # type: ignore
+from sqlalchemy.orm import Session  # type: ignore
 
 from app.core.config import settings
 from app.db.session import database, client as AsyncIOMotorClient

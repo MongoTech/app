@@ -1,4 +1,4 @@
-from celery import Celery
+from celery import Celery  # type: ignore
 
 MONGO_USER = "root"
 MONGO_PASS = "mongo"

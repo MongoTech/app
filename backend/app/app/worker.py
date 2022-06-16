@@ -1,9 +1,8 @@
 from app.core.celery_app import celery
 from app.core.config import settings
-from asgiref.sync import async_to_sync
-from raven import Client
+from raven import Client  # type: ignore
 client_sentry = Client(settings.SENTRY_DSN)
-from app.parsers import brainly, gauthmath, algebra, wyzant, study  # noqa
+from app.parsers import brainly, gauthmath, algebra, wyzant, study  # type: ignore
 
 
 @celery.task(acks_late=True)

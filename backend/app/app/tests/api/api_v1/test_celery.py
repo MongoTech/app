@@ -1,7 +1,7 @@
 from typing import Dict
 from fastapi.testclient import TestClient
 from app.core.config import settings
-import pytest
+import pytest  # type: ignore
 
 
 @pytest.mark.asyncio

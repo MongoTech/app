@@ -1,11 +1,11 @@
 from typing import Dict
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session  # type: ignore
 from app import crud
 from app.core.config import settings
 from app.schemas.user import UserCreate
 from app.tests.utils.utils import random_email, random_lower_string
-import pytest
+import pytest  # type: ignore
 
 
 def test_get_users_superuser_me(
@@ -43,7 +43,7 @@ async def test_create_user_new_email(
     created_user = r.json()
     user = await crud.user.get_by_email(db, email=username)
     assert user
-    assert user["email"] == created_user["email"]
+    assert user["email"] == created_user["email"]  # type: ignore
 
 @pytest.mark.asyncio
 async def test_get_existing_user(
@@ -52,8 +52,8 @@ async def test_get_existing_user(
     username = random_email()
     password = random_lower_string()
     user_in = UserCreate(email=username, password=password)
-    user = await crud.user.create(db, obj_in=user_in)
-    user_id = user["_id"]
+    user = await crud.user.create(db, obj_in=user_in)  # type: ignore
+    user_id = user["_id"]  # type: ignore
     r = client.get(
         f"{settings.API_V1_STR}/users/{user_id}", headers=superuser_token_headers,
     )
@@ -61,7 +61,7 @@ async def test_get_existing_user(
     api_user = r.json()
     existing_user = await crud.user.get_by_email(db, email=username)
     assert existing_user
-    assert existing_user["email"] == api_user["email"]
+    assert existing_user["email"] == api_user["email"]  # type: ignore
 
 @pytest.mark.asyncio
 async def test_create_user_existing_username(
@@ -71,7 +71,7 @@ async def test_create_user_existing_username(
     # username = email
     password = random_lower_string()
     user_in = UserCreate(email=username, password=password)
-    await crud.user.create(db, obj_in=user_in)
+    await crud.user.create(db, obj_in=user_in)  # type: ignore
     data = {"email": username, "password": password}
     r = client.post(
         f"{settings.API_V1_STR}/users/", headers=superuser_token_headers, json=data,
@@ -99,12 +99,12 @@ async def test_retrieve_users(
     username = random_email()
     password = random_lower_string()
     user_in = UserCreate(email=username, password=password)
-    await crud.user.create(db, obj_in=user_in)
+    await crud.user.create(db, obj_in=user_in)  # type: ignore
 
     username2 = random_email()
     password2 = random_lower_string()
     user_in2 = UserCreate(email=username2, password=password2)
-    await crud.user.create(db, obj_in=user_in2)
+    await crud.user.create(db, obj_in=user_in2)  # type: ignore
 
     r = client.get(f"{settings.API_V1_STR}/users/", headers=superuser_token_headers)
     all_users = r.json()
