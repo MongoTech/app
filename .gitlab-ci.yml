@@ -8,11 +8,30 @@ Mypy:
     script:
         - pip install mypy
         - mypy backend/app/app
+    after_script:
+        - ./get-updated-badge-info.sh
+    artifacts:
+        paths:
+            - badges.json
+        when: always
+        expire_in: 4 weeks
 
-unit-test:
+pytest:
   stage: test
+  image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+  variables:
+    PROJECT_NAME: "app.mongodb.tech"
+    SERVER_NAME: localhost
+    SERVER_HOST: "http://localhost"
+    FIRST_SUPERUSER: "admin@app.mongodb.tech"
+    FIRST_SUPERUSER_PASSWORD: 99d3b1f01aa639e4a76f4fc281fc834747a543720ba4c8a8648ba755aef9be7f
+  before_script:
+    - cd ./backend/app
+    - python3.9 -m venv venv
+    - source ./venv/bin/activate
   script:
-    - pip install pytest pytest-cov
-    - python -m pytest --cov-report=html --cov=backend/app/app .
+    - pip install pytest pytest-cov poetry
+    - poetry install
+    - python3.9 -m pytest --cov-report=html --cov=backend/app/app .
   artifacts:
     expire_in: 1 days
