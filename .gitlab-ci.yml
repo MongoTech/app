@@ -9,9 +9,9 @@ Mypy:
         - pip install mypy
         - mypy backend/app/app
     after_script:
-        - ./get-updated-badge-info.sh
+        - ./docs/get-updated-badge-mypy.sh
     artifacts:
         paths:
-            - badges.json
+            - badges-mypy.json
         when: always
         expire_in: 4 weeks
