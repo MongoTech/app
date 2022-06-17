@@ -32,6 +32,12 @@ pytest:
   script:
     - pip install pytest pytest-cov poetry
     - poetry install
-    - python3.9 -m pytest --cov-report=html --cov=backend/app/app .
+    - python3.9 -m pytest --cov=app --cov-report=term --cov-report=html app/tests .
+    - coverage report
+    - coverage html
+  coverage: '/^TOTAL.+?(\d+\%)$/'
   artifacts:
+    when: always
+    paths:
+      - ./backend/app/htmlcov
     expire_in: 1 days
