@@ -1,9 +1,5 @@
-from typing import TYPE_CHECKING
 from sqlalchemy import Boolean, Column, String  # type: ignore
 from app.db.base_class import Base
-
-if TYPE_CHECKING:
-    from .item import Item  # type: ignore
 
 
 class User(Base):

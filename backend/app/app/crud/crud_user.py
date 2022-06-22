@@ -1,7 +1,7 @@
 from typing import Any, Dict, Optional, Union, TypeVar, List
-from bson.objectid import ObjectId
-from motor.motor_asyncio import AsyncIOMotorClient
-from sqlalchemy.orm import Session
+from bson.objectid import ObjectId  # type: ignore
+from motor.motor_asyncio import AsyncIOMotorClient  # type: ignore
+from sqlalchemy.orm import Session  # type: ignore
 from fastapi.encoders import jsonable_encoder
 from app.core.security import get_password_hash, verify_password
 from app.crud.base import CRUDBase
@@ -25,7 +25,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     ) -> List[ModelType]:
         result = []
         async for document in db["users"].find().skip(skip).limit(limit):
-        # async for document in db["users"].find():
             document["id"] = str(document['_id'])# noqa
             result.append(document)
         return result
@@ -53,14 +52,14 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         obj_in = jsonable_encoder(obj_in)
         update_data = obj_in
 
-        if update_data["password"]:
-            hashed_password = get_password_hash(update_data["password"])
-            del update_data["password"]
-            update_data["hashed_password"] = hashed_password
+        if update_data["password"]:  # type: ignore
+            hashed_password = get_password_hash(update_data["password"])  # type: ignore
+            del update_data["password"]  # type: ignore
+            update_data["hashed_password"] = hashed_password  # type: ignore
         if 'email' in update_data:
-            del update_data['email']
-        await db["users"].update_one({"_id": ObjectId(db_obj['id'])},{'$set': update_data}) # noqa
-        user =  await db["users"].find_one({"_id":  ObjectId(db_obj['id'])}) # noqa
+            del update_data['email']  # type: ignore
+        await db["users"].update_one({"_id": ObjectId(db_obj['id'])}, {'$set': update_data})  # type: ignore
+        user = await db["users"].find_one({"_id": ObjectId(db_obj['id'])})  # type: ignore
         user["id"] = str(user["_id"])
         return user
 
@@ -68,17 +67,17 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         current_user = await self.get_by_email(db, email=email)
         if not current_user:
             return None
-        if not verify_password(password, current_user["hashed_password"]):
+        if not verify_password(password, current_user["hashed_password"]):  # type: ignore
             return None
         return current_user
 
     @staticmethod
     def is_active(current_user: User) -> bool:
-        return current_user["is_active"]
+        return current_user["is_active"]  # type: ignore
 
     @staticmethod
     def is_superuser(current_user: User) -> bool:
-        return current_user["is_superuser"]
+        return current_user["is_superuser"]  # type: ignore
 
 
 user = CRUDUser(User)

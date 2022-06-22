@@ -23,7 +23,7 @@ def user_authentication_headers(
 async def create_random_user(db: Session) -> User:
     email = random_email()
     password = random_lower_string()
-    user_in = {"username":email, "email": email, "password":password}
+    user_in = {"username": email, "email": email, "password": password}
     return await crud.user.create(db=db, obj_in=user_in)
 
 def create_user(client: TestClient, headers: str, superuser=False):

@@ -1,4 +1,4 @@
-from bson.objectid import ObjectId # type: ignore
+from bson.objectid import ObjectId  # type: ignore
 
 
 async def authenticate(db, email, password):

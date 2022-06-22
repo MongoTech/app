@@ -7,7 +7,7 @@ from app.schemas.user import UserCreate
 from app.tests.utils.user import create_user_and_login
 from app.tests.utils.utils import random_email, random_lower_string
 import pytest  # type: ignore
-from app.tests.utils.db import MongoDbTest, fake_db
+from app.tests.utils.db import fake_db
 from app.main import app
 from app.api.deps import get_db
 app.dependency_overrides[get_db] = fake_db

@@ -62,7 +62,7 @@ async def update_user_me(
     """
     Update own user.
     """
-    current_user["_id"] = str(current_user["_id"])
+    current_user["_id"] = str(current_user["_id"])  # type: ignore
     current_user_data = jsonable_encoder(current_user)
     user_in = schemas.UserUpdate(**current_user_data)
     if password is not None:

@@ -25,14 +25,6 @@ async def test_authenticate_user(db: Session) -> None:
     assert authenticated_user
     assert user["email"] == authenticated_user["email"]  # type: ignore
 
-@pytest.mark.asyncio
-async def test_authenticate_user(db: Session) -> None:
-    email = random_email()
-    password = random_lower_string()
-    user_in = UserCreate(email=email, password=password)
-    user = await crud.user.create(db, obj_in=user_in)
-    authenticated_user = await crud.user.authenticate(db, email=email, password="wrong password")
-    assert authenticated_user == None
 
 @pytest.mark.asyncio
 async def notest_not_authenticate_user(db: Session) -> None:
@@ -111,5 +103,5 @@ async def test_update_user(db: Session) -> None:
 
 @pytest.mark.asyncio
 async def notest_get_multi(db: Session) -> None:
-    users = await crud.user.get_multi(db=db)
+    users = await crud.user.get_multi(db=db)  # type: ignore
     assert len(users) > 0

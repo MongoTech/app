@@ -12,7 +12,6 @@ def init() -> None:
     loop.run_until_complete(init_db(db=db))
 
 
-
 def main() -> None:
     logger.info("Creating initial data")
     init()

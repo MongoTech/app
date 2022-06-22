@@ -8,7 +8,6 @@ from app.api.deps import get_db
 app.dependency_overrides[get_db] = fake_db
 
 
-
 @pytest.mark.asyncio
 async def notest_celery_worker_test(
     client: TestClient, superuser_token_headers: Dict[str, str]

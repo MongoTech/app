@@ -1,4 +1,4 @@
-from app import crud, schemas
+from app import crud
 from app.core.config import settings
 from app.db import base  # noqa: F401
 

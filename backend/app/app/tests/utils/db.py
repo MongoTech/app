@@ -9,11 +9,11 @@ class MongoDbTest(MagicMock):
     def __init__(self, *args: Any, **kw: Any):
         super().__init__(*args, **kw)
         user = {str(first_user_id): str(first_user_id),
-                 "_id": first_user_id,
-                 "email": settings.FIRST_SUPERUSER,
-                 "hashed_password": "$2b$12$mLRl07VnztvwkE36I0kC1uLiwalJ39mew.A2PKc1g0MRkf1AtdGD6",
-                 "is_superuser": True,
-                 "is_active": True}
+                "_id": first_user_id,
+                "email": settings.FIRST_SUPERUSER,
+                "hashed_password": "$2b$12$mLRl07VnztvwkE36I0kC1uLiwalJ39mew.A2PKc1g0MRkf1AtdGD6",
+                "is_superuser": True,
+                "is_active": True}
         self.users.setdefault(str(first_user_id), user)
 
     async def find_one(self, find):
@@ -46,7 +46,7 @@ class MongoDbTest(MagicMock):
 
             user_obj = type('User', (), user)
             user_obj.inserted_id = id
-            setattr(user_obj,"_id", id)
+            setattr(user_obj, "_id", id)
             return user_obj
 
     async def update_one(self, where, update):
