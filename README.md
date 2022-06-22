@@ -27,7 +27,7 @@ You need add keys [here](https://gitlab.com/-/profile/keys) [instruction how to 
 `Python 3.9.12`
 
 ## Run docker-compose
-`docker-compose -f docker-compose.dev.yml --env-file .env up --build -d`
+`docker-compose up -d`
 
 Main thing is monga and provisioning
 
