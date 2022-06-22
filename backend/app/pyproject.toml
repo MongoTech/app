@@ -39,6 +39,7 @@ cloudscraper = "^1.2.60"
 html2text = "^2020.1.16"
 parsel = "^1.6.0"
 mypy = "^0.961"
+pytest-mock = "^3.7.0"
 
 [tool.poetry.dev-dependencies]
 

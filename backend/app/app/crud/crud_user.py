@@ -14,14 +14,18 @@ ModelType = TypeVar("ModelType", bound=Base)
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     async def get(self, db: Session, id: str) -> Optional[ModelType]:
         current_user = await db["users"].find_one({"_id": ObjectId(id)})
-        current_user['id'] = str(current_user['_id'])
-        return current_user
+        if current_user:
+            current_user['id'] = str(current_user['_id'])
+            return current_user
+        else:
+            return None
 
     async def get_multi(
         self, db: Session, *, skip: int = 0, limit: int = 100
     ) -> List[ModelType]:
         result = []
         async for document in db["users"].find().skip(skip).limit(limit):
+        # async for document in db["users"].find():
             document["id"] = str(document['_id'])# noqa
             result.append(document)
         return result
