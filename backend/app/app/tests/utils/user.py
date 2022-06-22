@@ -26,7 +26,7 @@ async def create_random_user(db: Session) -> User:
     user_in = {"username":email, "email": email, "password":password}
     return await crud.user.create(db=db, obj_in=user_in)
 
-def create_user(client: TestClient, headers: Dict[str, str], superuser=False):
+def create_user(client: TestClient, headers: str, superuser=False):
     email = f"dmitriy.golub+{random.choice(range(111111, 999999))}@gmail.com"
     password = "superpassword123"
 
@@ -47,10 +47,12 @@ def create_user(client: TestClient, headers: Dict[str, str], superuser=False):
         return {'username': email, "password": password}, response['id']
     return None, None
 
-def create_user_and_login(client: TestClient, headers: Dict[str, str], superuser=False):
+
+def create_user_and_login(client: TestClient, headers: str, superuser=False):
     login_user_data, user_id = create_user(client, headers, superuser)
     response_login = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_user_data).json()
     return {"Authorization": f"Bearer {response_login['access_token']}"}, user_id
+
 
 async def authentication_token_from_email(
     *, client: TestClient, email: str, db: Session

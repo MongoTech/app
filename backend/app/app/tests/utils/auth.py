@@ -2,6 +2,8 @@ from bson.objectid import ObjectId # type: ignore
 
 
 async def authenticate(db, email, password):
+    if password == "wrong password":
+        return None
     id = ObjectId()
     if "admin" in email:
         superuser = True

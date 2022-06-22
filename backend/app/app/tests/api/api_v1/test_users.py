@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session  # type: ignore
 from app import crud
 from app.core.config import settings
 from app.schemas.user import UserCreate
+from app.tests.utils.user import create_user_and_login
 from app.tests.utils.utils import random_email, random_lower_string
 import pytest  # type: ignore
 from app.tests.utils.db import MongoDbTest, fake_db
@@ -48,6 +49,20 @@ async def test_create_user_new_email(
     user = await crud.user.get_by_email(db, email=username)
     assert user
     assert user["email"] == created_user["email"]  # type: ignore
+
+@pytest.mark.asyncio
+async def test_update_current_user(
+    client: TestClient, superuser_token_headers: str, db: Session
+) -> None:
+    user_header, _ = create_user_and_login(client, superuser_token_headers)
+    username = random_email()
+    password = random_lower_string()
+    data = {"email": username, "password": password, "full_name": "User name"}
+    r = client.put(
+        f"{settings.API_V1_STR}/users/me", headers=user_header, json=data,
+    )
+    assert 200 == r.status_code
+
 
 @pytest.mark.asyncio
 async def test_get_existing_user(
