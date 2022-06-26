@@ -10,23 +10,35 @@
     "postversion": "node scripts/postversion.js"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "babel-loader": "^8.2.5",
+    "cjs": "^0.0.11",
+    "typesafe-vuex": "^3.2.2",
     "vue": "^2.6.11",
+    "vue-loader": "^17.0.0",
+    "vue-loader-options-plugin": "^0.1.1",
     "vue-meta": "^2.3.3",
+    "vue-perfect-scrollbar": "^0.2.1",
+    "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.1.6",
-    "vuetify": "^2.3.13",
+    "vuetify": "^2.6.6",
     "vuex": "^3.4.0",
     "vuex-pathify": "^1.4.1",
-    "vuex-router-sync": "^5.0.0"
+    "vuex-router-sync": "^5.0.0",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@vue/cli": "^5.0.6",
     "@vue/cli-plugin-babel": "^4.3.1",
     "@vue/cli-plugin-router": "~4.3.1",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "^4.3.1",
+    "@vue/cli-service-global": "^4.5.18",
     "@vuetify/vue-cli-plugin-preset-base": "~0.3.2",
     "archiver": "^4.0.1",
     "babel-core": "7.0.0-bridge.0",
+    "core-js": "^2.6.12",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "open": "^7.0.3",
@@ -35,8 +47,8 @@
     "shelljs": "^0.8.4",
     "vue-chartist": "^2.3.1",
     "vue-cli-plugin-vuetify": "^2.0.5",
-    "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.4.3",
+    "vue-template-compiler": "^2.6.14",
+    "vuetify-loader": "^1.7.3",
     "webfontloader": "^1.6.28",
     "webpack": "^4.43.0"
   }

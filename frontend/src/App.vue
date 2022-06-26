@@ -1,23 +1,22 @@
 <template>
   <v-fade-transition mode="out-in">
-    <router-view />
+    <router-view/>
   </v-fade-transition>
 </template>
 
 <script>
-  // Styles
-  import '@/styles/overrides.sass'
+// Styles
+import '@/styles/overrides.sass'
+import {readIsLoggedIn} from '@/store/main/getters';
+import {dispatchCheckLoggedIn} from '@/store/main/actions';
 
-  export default {
-    name: 'App',
-    metaInfo: {
-      title: 'App',
-      titleTemplate: '%s | Material Dashboard Free',
-      htmlAttrs: { lang: 'en' },
-      meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      ],
-    },
+export default class App extends Vue {
+  get loggedIn() {
+    return readIsLoggedIn(this.$store);
   }
+
+  async created() {
+    await dispatchCheckLoggedIn(this.$store);
+  }
+}
 </script>

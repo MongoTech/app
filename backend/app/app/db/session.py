@@ -1,5 +1,6 @@
-import motor.motor_asyncio  # type: ignore
 import asyncio
+
+import motor.motor_asyncio  # type: ignore
 
 MONGODB_URL = "mongodb://root:mongo@localhost:27017/?authMechanism=DEFAULT"
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL)

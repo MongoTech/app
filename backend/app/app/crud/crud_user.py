@@ -1,13 +1,15 @@
 from typing import Any, Dict, Optional, Union, TypeVar, List
+
 from bson.objectid import ObjectId  # type: ignore
+from fastapi.encoders import jsonable_encoder
 from motor.motor_asyncio import AsyncIOMotorClient  # type: ignore
 from sqlalchemy.orm import Session  # type: ignore
-from fastapi.encoders import jsonable_encoder
+
 from app.core.security import get_password_hash, verify_password
 from app.crud.base import CRUDBase
+from app.db.base_class import Base
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
-from app.db.base_class import Base
 
 ModelType = TypeVar("ModelType", bound=Base)
 

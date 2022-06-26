@@ -1,7 +1,9 @@
-from unittest.mock import MagicMock
-from bson.objectid import ObjectId  # type: ignore
-from app.core.config import settings
 from typing import Any
+from unittest.mock import MagicMock
+
+from bson.objectid import ObjectId  # type: ignore
+
+from app.core.config import settings
 
 first_user_id = ObjectId()
 
