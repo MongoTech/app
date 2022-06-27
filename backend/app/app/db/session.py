@@ -2,8 +2,6 @@ import asyncio
 
 import motor.motor_asyncio  # type: ignore
 
-MONGODB_URL = "mongodb://root:mongo@localhost:27017/?authMechanism=DEFAULT"
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL)
 from app.core.config import settings
 
 MONGO_URL = f"{settings.MONGO_USER}:{settings.MONGO_PASS}@{settings.MONGO_HOST}:27017"

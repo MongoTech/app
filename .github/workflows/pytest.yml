@@ -20,13 +20,6 @@ jobs:
         pip install poetry
         cd backend/app
         poetry install
-    - name: Build coverage file
-      run: |
-        export $(cat .env|xargs)
-        cd backend/app/app
-        ../../../venv/bin/pytest --cache-clear --cov=app > pytest-coverage.txt
-    - name: Comment coverage
-      uses: coroo/pytest-coverage-commentator@v1.0.2
     - name: Build coverage percentage
       run: |
         echo COVERAGE=$(export $(cat .env|xargs);cd backend/app/app;../../../venv/bin/pytest --cache-clear --cov --cov-report term | grep "TOTAL" | awk '{print $4}') >> $GITHUB_ENV

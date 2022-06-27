@@ -62,6 +62,10 @@ class Settings(BaseSettings):
     MONGO_HOST: str
     MONGO_DB: str
 
+    SSH_KEY: str
+    SSH_HOSTNAME = str
+    SSH_USERNAME = str
+
     class Config:
         case_sensitive = True
 

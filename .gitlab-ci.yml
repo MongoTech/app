@@ -26,15 +26,6 @@ bandit:
         - ./get-updated-badge.sh bandit
         - scp bandit-badges.json ubuntu@mongodb.tech:mongodb/badges/bandit.json
 
-isort:
-    stage: test
-    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
-    script:
-        - pip install isort
-        - isort backend/app/app
-    after_script:
-        - ./get-updated-badge.sh isort
-        - scp isort-badges.json ubuntu@mongodb.tech:mongodb/badges/isort.json
 
 flake8:
     stage: test
