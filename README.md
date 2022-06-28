@@ -1,4 +1,4 @@
-# app.monogdb.tech
+# MongoTech
 
 ## Before you start you needd
 
