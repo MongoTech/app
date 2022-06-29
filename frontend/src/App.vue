@@ -5,10 +5,10 @@
 </template>
 
 <script>
-// Styles
-import '@/styles/overrides.sass'
-import {readIsLoggedIn} from '@/store/main/getters';
-import {dispatchCheckLoggedIn} from '@/store/main/actions';
+
+import './styles/overrides.sass'
+import {readIsLoggedIn} from './store/main/getters.ts';
+import {dispatchCheckLoggedIn} from './store/main/actions.ts';
 
 export default class App extends Vue {
   get loggedIn() {
