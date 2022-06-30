@@ -31,7 +31,7 @@ services:
       - mongo
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: backend.dockerfile
     ports:
       - "8001:8001"
 
