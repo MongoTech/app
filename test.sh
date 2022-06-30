@@ -11,4 +11,4 @@ isort backend/app/app
 echo "Flake8"
 flake8 backend/app/app
 echo "Pytest"
-pytest backend/app/app/tests
+cd backend/app/app;pytest tests --cov --cov-report term

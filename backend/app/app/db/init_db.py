@@ -1,9 +1,11 @@
+from sqlalchemy.orm import Session
+
 from app import crud
 from app.core.config import settings
 from app.db import base  # noqa: F401
 
 
-async def init_db(db) -> None:
+async def init_db(db: Session) -> None:
     user = await crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER)
     if not user:
         user_in = {

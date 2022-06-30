@@ -1,0 +1,17 @@
+name: bandit
+
+on: push
+
+jobs:
+  build:
+    name: Bandit
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: jpetrucciani/bandit-check@master
+      with:
+        path: "./backend/app/app"
+        bandit_flags: '-x ./backend/app/app/tests'

@@ -1,21 +1,21 @@
+from typing import Optional
+
 from bson.objectid import ObjectId  # type: ignore
+from sqlalchemy.orm import Session
 
 
-async def authenticate(db, email, password):
+async def authenticate(db: Session, email: str, password: str) -> Optional[dict]:
     if password == "wrong password":
         return None
-    id = ObjectId()
-    if "admin" in email:
-        superuser = True
-    else:
-        superuser = False
+    user_id = ObjectId()
+    superuser = "admin" in email
     user = {
-        "id": str(id),
-        "_id": id,
+        "id": str(user_id),
+        "_id": user_id,
         "email": email,
         "hashed_password": password,
         "is_superuser": superuser,
         "is_active": True,
     }
-    await db["users"].insert_one(document=user)
+    await db["users"].insert_one(document=user)  # type: ignore
     return user

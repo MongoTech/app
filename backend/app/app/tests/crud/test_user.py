@@ -1,5 +1,6 @@
-from sqlalchemy.orm import Session  # type: ignore
 import pytest  # type: ignore
+from sqlalchemy.orm import Session  # type: ignore
+
 from app import crud
 from app.schemas.user import UserCreate, UserUpdate
 from app.tests.utils.utils import random_email, random_lower_string

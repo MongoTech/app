@@ -1,7 +1,9 @@
-from typing import Dict
+import random
+from typing import Any, Dict, Union
+
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session  # type: ignore
-import random
+
 from app import crud
 from app.core.config import settings
 from app.models.user import User
@@ -27,7 +29,9 @@ async def create_random_user(db: Session) -> User:
     return await crud.user.create(db=db, obj_in=user_in)
 
 
-def create_user(client: TestClient, headers: str, superuser=False):
+def create_user(
+    client: TestClient, headers: str, superuser: bool = False
+) -> Union[tuple[dict[str, str], Any], tuple[None, None]]:  # type: ignore
     email = f"dmitriy.golub+{random.choice(range(111111, 999999))}@gmail.com"
     password = "superpassword123"
 
@@ -47,16 +51,18 @@ def create_user(client: TestClient, headers: str, superuser=False):
     )
     if response.status_code == 200:
         response = response.json()
-        return {"username": email, "password": password}, response["id"]
+        return dict(username=email, password=password), response["id"]
     return None, None
 
 
-def create_user_and_login(client: TestClient, headers: str, superuser=False):
+def create_user_and_login(
+    client: TestClient, headers: str, superuser: bool = False
+) -> tuple[dict[str, str], str]:  # type: ignore
     login_user_data, user_id = create_user(client, headers, superuser)
     response_login = client.post(
         f"{settings.API_V1_STR}/login/access-token", data=login_user_data
     ).json()
-    return {"Authorization": f"Bearer {response_login['access_token']}"}, user_id
+    return {"Authorization": f"Bearer {response_login['access_token']}"}, user_id  # type: ignore
 
 
 async def authentication_token_from_email(

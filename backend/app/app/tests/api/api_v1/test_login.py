@@ -1,11 +1,14 @@
-from typing import Dict
-from app import crud
+from typing import Any, Dict
+
 import pytest  # type: ignore
 from fastapi.testclient import TestClient  # type: ignore
-from app.core.config import settings
-from app.tests.utils.db import fake_db
-from app.main import app
+from sqlalchemy.orm import Session
+
+from app import crud
 from app.api.deps import get_db
+from app.core.config import settings
+from app.main import app
+from app.tests.utils.db import fake_db
 from app.tests.utils.user import create_user
 
 app.dependency_overrides[get_db] = fake_db
@@ -15,10 +18,11 @@ class Storage:
     reset_password_token = None
 
 
-def send_email_test(**kwargs):
+def send_email_test(**kwargs: Any) -> None:
     if "environment" in kwargs:
         Storage.reset_password_token = kwargs["environment"]["link"].split("token=")[1]
-        pass
+
+    return None
 
 
 login_data = {
@@ -61,7 +65,7 @@ def test_login_access_token_if_user_not_authenticated(client: TestClient) -> Non
     assert "Incorrect email or password" in tokens.values()
 
 
-def test_login_access_token_if_user_not_active(client: TestClient, mocker) -> None:
+def test_login_access_token_if_user_not_active(client: TestClient, mocker: Any) -> None:
     mock_crud_user_is_active = mocker.patch("app.crud.user.is_active")
     mock_crud_user_is_active.return_value = False
     r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
@@ -93,7 +97,7 @@ def test_recover_password_not_existing_user(client: TestClient) -> None:
     )
 
 
-def test_recover_password(client: TestClient, mocker) -> None:
+def test_recover_password(client: TestClient, mocker: Any) -> None:
     mocker.patch("app.utils.send_email", side_effect=send_email_test)
     r = client.post(
         f"{settings.API_V1_STR}/password-recovery/{settings.FIRST_SUPERUSER}"
@@ -118,13 +122,13 @@ def test_reset_password_invalid_token(client: TestClient) -> None:
 
 @pytest.mark.asyncio
 async def test_reset_password_inactive_user(
-    client: TestClient, superuser_token_headers, db, mocker
+    client: TestClient, superuser_token_headers: str, db: Session, mocker: Any
 ) -> None:
     user, user_id = create_user(client, superuser_token_headers)
     mocker.patch("app.utils.send_email", side_effect=send_email_test)
-    user["id"] = user_id
-    r = client.post(f"{settings.API_V1_STR}/password-recovery/{user['username']}")
-    await crud.user.update(db, db_obj=user, obj_in={"is_active": False})
+    user["id"] = user_id  # type: ignore
+    r = client.post(f"{settings.API_V1_STR}/password-recovery/{user['username']}")  # type: ignore
+    await crud.user.update(db, db_obj=user, obj_in={"is_active": False})  # type: ignore
     form_data = {
         "new_password": "mysupersecret__new__password",
         "token": Storage.reset_password_token,
@@ -137,11 +141,13 @@ async def test_reset_password_inactive_user(
     assert "Inactive user" in r.json().values()
 
 
-def test_reset_password(client: TestClient, mocker, superuser_token_headers) -> None:
+def test_reset_password(
+    client: TestClient, mocker: Any, superuser_token_headers: str
+) -> None:
     user, user_id = create_user(client, superuser_token_headers)
     mocker.patch("app.utils.send_email", side_effect=send_email_test)
-    user["id"] = user_id
-    r = client.post(f"{settings.API_V1_STR}/password-recovery/{user['username']}")
+    user["id"] = user_id  # type: ignore
+    r = client.post(f"{settings.API_V1_STR}/password-recovery/{user['username']}")  # type: ignore
     form_data = {
         "new_password": "mysupersecret__new__password",
         "token": Storage.reset_password_token,
@@ -156,17 +162,17 @@ def test_reset_password(client: TestClient, mocker, superuser_token_headers) -> 
 
 @pytest.mark.asyncio
 async def test_reset_password_not_exist_user(
-    client: TestClient, mocker, superuser_token_headers, db
-):
+    client: TestClient, mocker: Any, superuser_token_headers: str, db: Session
+) -> None:
     user, user_id = create_user(client, superuser_token_headers)
     mocker.patch("app.utils.send_email", side_effect=send_email_test)
-    user["id"] = user_id
-    r = client.post(f"{settings.API_V1_STR}/password-recovery/{user['username']}")
+    user["id"] = user_id  # type: ignore
+    r = client.post(f"{settings.API_V1_STR}/password-recovery/{user['username']}")  # type: ignore
     form_data = {
         "new_password": "mysupersecret__new__password",
         "token": Storage.reset_password_token,
     }
-    await crud.user.remove(db=db, user_id=user_id)
+    await crud.user.remove(db=db, user_id=user_id)  # type: ignore
     r = client.post(
         f"{settings.API_V1_STR}/reset-password/",
         json=form_data,
