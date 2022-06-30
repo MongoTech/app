@@ -1,4 +1,5 @@
 from sqlalchemy import Boolean, Column, String  # type: ignore
+
 from app.db.base_class import Base
 
 

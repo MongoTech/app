@@ -16,5 +16,5 @@ def load_content_from_file(file_name: str) -> str:
         return file.read()
 
 
-def curl(link: str, domain: str):
-    return os.popen(f"curl -H 'Host: {domain}' {link} -k").read()
+def curl(link: str, domain: str) -> None:
+    os.popen(f"curl -H 'Host: {domain}' {link} -k").read()  # nosec

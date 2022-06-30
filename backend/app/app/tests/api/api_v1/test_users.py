@@ -1,23 +1,25 @@
 from typing import Dict
-from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session  # type: ignore
-from app import crud
-from app.core.config import settings
-from app.schemas.user import UserCreate
-from app.tests.utils.user import create_user_and_login
-from app.tests.utils.utils import random_email, random_lower_string
+
 import pytest  # type: ignore
-from app.tests.utils.db import fake_db
-from app.main import app
+from fastapi.testclient import TestClient
+from jose import jwt  # type: ignore
+from sqlalchemy.orm import Session  # type: ignore
+
+from app import crud
 from app.api.deps import get_db
 from app.core import security
-from jose import jwt  # type: ignore
+from app.core.config import settings
+from app.main import app
+from app.schemas.user import UserCreate
+from app.tests.utils.db import fake_db
+from app.tests.utils.user import create_user_and_login
+from app.tests.utils.utils import random_email, random_lower_string
 
 app.dependency_overrides[get_db] = fake_db
 
 
 def test_get_users_superuser_me(
-    client: TestClient, superuser_token_headers: Dict[str, str], mocker
+    client: TestClient, superuser_token_headers: Dict[str, str]
 ) -> None:
     r = client.get(f"{settings.API_V1_STR}/users/me", headers=superuser_token_headers)
     current_user = r.json()
@@ -29,7 +31,7 @@ def test_get_users_superuser_me(
 
 @pytest.mark.asyncio
 async def test_get_users_normal_user_me(
-    client: TestClient, superuser_token_headers: Dict[str, str], mocker
+    client: TestClient, superuser_token_headers: Dict[str, str]
 ) -> None:
     r = client.get(f"{settings.API_V1_STR}/users/me", headers=superuser_token_headers)
     current_user = r.json()
@@ -239,6 +241,6 @@ async def test_get_current_user_user_not_active(
     token = user_headers_auth["Authorization"].split(" ")[1]
 
     payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[security.ALGORITHM])
-    db.users[payload["sub"]]["is_active"] = False
+    db.users[payload["sub"]]["is_active"] = False  # type: ignore
     r = client.get(f"{settings.API_V1_STR}/users/me", headers=user_headers_auth)
     assert 400 == r.status_code

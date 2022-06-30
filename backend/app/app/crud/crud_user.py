@@ -1,20 +1,22 @@
-from typing import Any, Dict, Optional, Union, TypeVar, List
+from typing import Any, Dict, List, Optional, TypeVar, Union
+
 from bson.objectid import ObjectId  # type: ignore
+from fastapi.encoders import jsonable_encoder
 from motor.motor_asyncio import AsyncIOMotorClient  # type: ignore
 from sqlalchemy.orm import Session  # type: ignore
-from fastapi.encoders import jsonable_encoder
+
 from app.core.security import get_password_hash, verify_password
 from app.crud.base import CRUDBase
+from app.db.base_class import Base
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
-from app.db.base_class import Base
 
 ModelType = TypeVar("ModelType", bound=Base)
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     async def get(self, db: Session, id: str) -> Optional[ModelType]:
-        current_user = await db["users"].find_one({"_id": ObjectId(id)})
+        current_user = await db["users"].find_one({"_id": ObjectId(id)})  # type: ignore
         if current_user:
             current_user["id"] = str(current_user["_id"])
             return current_user
@@ -25,15 +27,15 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         self, db: Session, *, skip: int = 0, limit: int = 100
     ) -> List[ModelType]:
         result = []
-        async for document in db["users"].find().skip(skip).limit(limit):
+        async for document in db["users"].find().skip(skip).limit(limit):  # type: ignore
             document["id"] = str(document["_id"])  # noqa
             result.append(document)
         return result
 
-    async def get_by_email(self, db, email: str) -> Optional[User]:
-        return await db["users"].find_one({"email": email})  # noqa
+    async def get_by_email(self, db: Session, email: str) -> Optional[User]:
+        return await db["users"].find_one({"email": email})  # type: ignore
 
-    async def create(self, db, obj_in: dict) -> User:
+    async def create(self, db: Session, obj_in: dict) -> User:
         obj_in = jsonable_encoder(obj_in)
         db_obj = {
             "email": obj_in["email"],
@@ -42,8 +44,10 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             "is_superuser": obj_in.get("is_superuser") or False,
             "is_active": True,
         }
-        obj = await db["users"].insert_one(document=db_obj)  # noqa
-        user = await db["users"].find_one({"_id": ObjectId(obj.inserted_id)})  # noqa
+        obj = await db["users"].insert_one(document=db_obj)  # type: ignore
+        user = await db["users"].find_one(  # type: ignore
+            {"_id": ObjectId(obj.inserted_id)}
+        )  # type: ignore
         user["id"] = str(obj.inserted_id)
         return user
 

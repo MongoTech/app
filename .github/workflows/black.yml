@@ -1,0 +1,16 @@
+name: black
+
+on: [push]
+
+jobs:
+  build:
+    name: Black
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.9" ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rickstaa/action-black@v1
+        with:
+          black_args: ". --check"

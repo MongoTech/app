@@ -57,6 +57,11 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER_PASSWORD: str
     USERS_OPEN_REGISTRATION: bool = False
 
+    MONGO_USER: str
+    MONGO_PASS: str
+    MONGO_HOST: str
+    MONGO_DB: str
+
     class Config:
         case_sensitive = True
 
