@@ -1,10 +1,10 @@
-FROM python:3.9 as requirements-stage
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9 as requirements-stage
 WORKDIR /tmp
 RUN pip install poetry
 COPY ./app/pyproject.toml ./app/poetry.lock* /tmp/
 RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
-FROM python:3.9
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 

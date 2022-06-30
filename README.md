@@ -63,7 +63,8 @@ In enviroment you need to define HOST = http://localhost:8001/api/v1 and pickup 
 `./test.sh`
 This run all linters and pytest
 
-#Deploy all stack in docker containers
+## Deploy all stack in docker containers
+
 For Intel cpu
 `docker-compose -f docker-compose.dev.yml --env-file .env up --build -d`
 
