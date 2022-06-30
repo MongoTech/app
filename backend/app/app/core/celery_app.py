@@ -1,6 +1,6 @@
+from app.core.config import Settings
 from celery import Celery  # type: ignore
 
-from app.core.config import Settings
 
 MONGO_URL = f"{Settings.MONGO_USER}:{Settings.MONGO_PASS}@{Settings.MONGO_HOST}:27017"
 OPTIONS = "authSource=admin&retryWrites=true&w=majority"

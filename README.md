@@ -53,6 +53,7 @@ Main thing is monga and provisioning
 [Postman](https://www.postman.com/downloads/)
 
 ## Configure first request Get Token
+
 [get token request](https://gitlab.com/mongodb.tech/app/-/raw/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
 [add tests to save token](https://gitlab.com/mongodb.tech/app/-/blob/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
 
@@ -61,3 +62,13 @@ In enviroment you need to define HOST = http://localhost:8001/api/v1 and pickup 
 ## Before commit you need Run
 `./test.sh`
 This run all linters and pytest
+
+#Deploy all stack in docker containers
+For Intel cpu
+`docker-compose -f docker-compose.dev.yml --env-file .env up --build -d`
+
+For Arm64 cpu
+`docker-compose -f docker-compose.dev64.yml --env-file .env up --build -d`
+
+After up and running all containers, exec in backend container and run
+`python3.9 app/initial_data.py`
