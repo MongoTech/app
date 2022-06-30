@@ -53,7 +53,6 @@ Main thing is monga and provisioning
 [Postman](https://www.postman.com/downloads/)
 
 ## Configure first request Get Token
->>>>>>> 748c81b (Release 0.0.1)
 [get token request](https://gitlab.com/mongodb.tech/app/-/raw/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
 [add tests to save token](https://gitlab.com/mongodb.tech/app/-/blob/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
 
