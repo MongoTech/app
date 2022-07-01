@@ -1,6 +1,6 @@
 # MongoTech
 
-## Before you start you needd
+## Before you start you neeed
 
 * [Docker+Docker Compose](https://www.docker.com/ + https://docs.docker.com/compose/install/).
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
