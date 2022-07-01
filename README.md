@@ -41,7 +41,7 @@ Main thing is monga and provisioning
 ## Run application
 `python main.py`
 
-## For api testing you need postpam
+## For api testing you need postman
 
 [Postman](https://www.postman.com/downloads/)
 
