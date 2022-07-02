@@ -1,4 +1,10 @@
 # MongoTech
+[![Flake8](https://github.com/mongotech/app/actions/workflows/flake8.yml/badge.svg)](https://github.com/mongotech/app/actions/workflows/flake8.yml)
+[![Black](https://github.com/mongotech/app/actions/workflows/black.yml/badge.svg)](https://github.com/mongotech/app/actions/workflows/black.yml)
+[![Bandit](https://github.com/mongotech/app/actions/workflows/bandit.yml/badge.svg)](https://github.com/mongotech/app/actions/workflows/bandit.yml)
+[![MyPy](https://github.com/mongotech/app/actions/workflows/mypy.yml/badge.svg)](https://github.com/mongotech/app/actions/workflows/mypy.yml)
+![PyTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/dagolub/730cda43e9bff219b52954a6390b1c24/raw/mongotech.json)
+
 
 ## Before you start you neeed
 
@@ -45,10 +51,24 @@ Main thing is monga and provisioning
 
 [Postman](https://www.postman.com/downloads/)
 
-# Configure first request Get Token
+## Configure first request Get Token
+
 [get token request](https://gitlab.com/mongodb.tech/app/-/raw/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
 [add tests to save token](https://gitlab.com/mongodb.tech/app/-/blob/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
 
 In enviroment you need to define HOST = http://localhost:8001/api/v1 and pickup username and password from .env file
 
+## Before commit you need Run
+`./test.sh`
+This run all linters and pytest
 
+## Deploy all stack in docker containers
+
+For Intel cpu
+`docker-compose -f docker-compose.dev.yml --env-file .env up --build -d`
+
+For Arm64 cpu
+`docker-compose -f docker-compose.dev64.yml --env-file .env up --build -d`
+
+After up and running all containers, exec in backend container and run
+`python3.9 app/initial_data.py`

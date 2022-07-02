@@ -1,0 +1,22 @@
+name: mypy
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.9" ]
+    name: MyPy
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Dependencies and run MyPy
+      run: |
+        python -m venv venv
+        source ./venv/bin/activate
+        pip install poetry
+        pip install --upgrade pip
+        cd backend/app
+        poetry install
+        ../../venv/bin/mypy ./

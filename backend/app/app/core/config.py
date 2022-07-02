@@ -1,7 +1,7 @@
 import secrets
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import AnyHttpUrl, BaseSettings, EmailStr, HttpUrl, PostgresDsn, validator
+from pydantic import AnyHttpUrl, BaseSettings, EmailStr, HttpUrl, validator
 
 
 class Settings(BaseSettings):
@@ -48,14 +48,19 @@ class Settings(BaseSettings):
     def get_emails_enabled(cls, v: bool, values: Dict[str, Any]) -> bool:
         return bool(
             values.get("SMTP_HOST")
-            and values.get("SMTP_PORT")
-            and values.get("EMAILS_FROM_EMAIL")
+            and values.get("SMTP_PORT")  # noqa
+            and values.get("EMAILS_FROM_EMAIL")  # noqa
         )
 
     EMAIL_TEST_USER: EmailStr = "test@example.com"  # type: ignore
     FIRST_SUPERUSER: EmailStr
     FIRST_SUPERUSER_PASSWORD: str
     USERS_OPEN_REGISTRATION: bool = False
+
+    MONGO_USER: str
+    MONGO_PASS: str
+    MONGO_HOST: str
+    MONGO_DB: str
 
     class Config:
         case_sensitive = True

@@ -1,6 +1,7 @@
 import logging
 
-from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
+from tenacity import retry  # type: ignore
+from tenacity import after_log, before_log, stop_after_attempt, wait_fixed
 
 from app.db.session import database
 
@@ -20,7 +21,7 @@ wait_seconds = 1
 def init() -> None:
     try:
         # Try to create session to check if DB is awake
-        db = database
+        db = database  # noqa
     except Exception as e:
         logger.error(e)
         raise e

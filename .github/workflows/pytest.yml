@@ -1,0 +1,34 @@
+name: PyTest
+
+on: push
+
+jobs:
+  build:
+    name: "PyTest"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source ./venv/bin/activate
+        pip install --upgrade pip
+        pip install poetry
+        cd backend/app
+        poetry install
+    - name: Build coverage percentage
+      run: |
+        echo COVERAGE=$(export $(cat .env|xargs);cd backend/app/app;../../../venv/bin/pytest --cache-clear --cov --cov-report term | grep "TOTAL" | awk '{print $4}') >> $GITHUB_ENV
+    - name: Create coverage Badge
+      uses: schneegans/dynamic-badges-action@v1.4.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: 730cda43e9bff219b52954a6390b1c24
+        filename: mongotech.json
+        label: PyTest
+        message: ${{ env.COVERAGE }}
+        color: success

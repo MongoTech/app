@@ -1,0 +1,94 @@
+stages:
+    - test
+
+before_script:
+  - mkdir ~/.ssh
+  - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - ssh-keyscan -H mongodb.tech >> ~/.ssh/known_hosts
+
+black:
+    stage: test
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+    script:
+        - pip install black
+        - black backend/app/app
+    after_script:
+        - ./get-updated-badge.sh black
+        - scp black-badges.json ubuntu@mongodb.tech:mongodb/badges/black.json
+bandit:
+    stage: test
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+    script:
+        - pip install bandit
+        - bandit backend/app/app
+    after_script:
+        - ./get-updated-badge.sh bandit
+        - scp bandit-badges.json ubuntu@mongodb.tech:mongodb/badges/bandit.json
+
+isort:
+    stage: test
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+    script:
+        - pip install isort
+        - isort backend/app/app
+    after_script:
+        - ./get-updated-badge.sh isort
+        - scp isort-badges.json ubuntu@mongodb.tech:mongodb/badges/isort.json
+
+flake8:
+    stage: test
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+    script:
+        - pip install flake8
+        - flake8 backend/app/app
+    after_script:
+        - ./get-updated-badge.sh flake8
+        - scp flake8-badges.json ubuntu@mongodb.tech:mongodb/badges/flake8.json
+
+mypy:
+    stage: test
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+    script:
+        - pip install mypy
+        - mypy backend/app/app
+    after_script:
+        - ./get-updated-badge.sh mypy
+        - scp mypy-badges.json ubuntu@mongodb.tech:mongodb/badges/mypy.json
+
+pytest:
+  stage: test
+  image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+  variables:
+    PROJECT_NAME: "app.mongodb.tech"
+    SERVER_NAME: localhost
+    SERVER_HOST: "http://localhost"
+    FIRST_SUPERUSER: "admin@app.mongodb.tech"
+    FIRST_SUPERUSER_PASSWORD: 99d3b1f01aa639e4a76f4fc281fc834747a543720ba4c8a8648ba755aef9be7f
+    EMAIL_TEMPLATES_DIR: "email-templates/build"
+  before_script:
+    - cd ./backend/app
+    - python3.9 -m venv venv
+    - source ./venv/bin/activate
+  script:
+    - pip install pytest pytest-cov poetry
+    - poetry install
+    - cd ./app
+    - rm backend_pre_start.py
+    - rm tests_pre_start.py
+    - rm celeryworker_pre_start.py
+    - rm core/celery_app.py
+    - rm db/base.py
+    - rm db/init_db.py
+    - rm helpers.py
+    - rm initial_data.py
+    - rm worker.py
+    - python3.9 -m pytest --cov=app --cov-report=term --cov-report=html tests .
+    - coverage report
+    - coverage html
+  coverage: '/^TOTAL.+?(\d+\%)$/'
+  artifacts:
+    when: always
+    paths:
+      - ./backend/app/app/htmlcov
+    expire_in: 14 days
