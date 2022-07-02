@@ -1,9 +1,6 @@
-from typing import TYPE_CHECKING
-from sqlalchemy import Boolean, Column, Integer, String
-from app.db.base_class import Base
+from sqlalchemy import Boolean, Column, String  # type: ignore
 
-if TYPE_CHECKING:
-    from .item import Item  # noqa: F401
+from app.db.base_class import Base
 
 
 class User(Base):

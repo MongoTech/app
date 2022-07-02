@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-import emails
-from emails.template import JinjaTemplate
-from jose import jwt
+import emails  # type: ignore
+from emails.template import JinjaTemplate  # type: ignore
+from jose import jwt  # type: ignore
 
 from app.core.config import settings
 
@@ -16,7 +16,8 @@ def send_email(
     html_template: str = "",
     environment: Dict[str, Any] = {},
 ) -> None:
-    assert settings.EMAILS_ENABLED, "no provided configuration for email variables"
+    if not settings.EMAILS_ENABLED:
+        print("no provided configuration for email variables")
     message = emails.Message(
         subject=JinjaTemplate(subject_template),
         html=JinjaTemplate(html_template),
@@ -93,7 +94,9 @@ def generate_password_reset_token(email: str) -> str:
     expires = now + delta
     exp = expires.timestamp()
     encoded_jwt = jwt.encode(
-        {"exp": exp, "nbf": now, "sub": email}, settings.SECRET_KEY, algorithm="HS256",
+        {"exp": exp, "nbf": now, "sub": email},
+        settings.SECRET_KEY,
+        algorithm="HS256",
     )
     return encoded_jwt
 
@@ -101,6 +104,6 @@ def generate_password_reset_token(email: str) -> str:
 def verify_password_reset_token(token: str) -> Optional[str]:
     try:
         decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
-        return decoded_token["email"]
+        return decoded_token["sub"]
     except jwt.JWTError:
         return None

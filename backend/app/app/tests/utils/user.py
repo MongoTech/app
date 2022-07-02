@@ -1,7 +1,9 @@
-from typing import Dict
-from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 import random
+from typing import Any, Dict, Union
+
+from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session  # type: ignore
+
 from app import crud
 from app.core.config import settings
 from app.models.user import User
@@ -23,10 +25,13 @@ def user_authentication_headers(
 async def create_random_user(db: Session) -> User:
     email = random_email()
     password = random_lower_string()
-    user_in = {"username":email, "email": email, "password":password}
+    user_in = {"username": email, "email": email, "password": password}
     return await crud.user.create(db=db, obj_in=user_in)
 
-def create_user(client: TestClient, headers: Dict[str, str], superuser=False):
+
+def create_user(
+    client: TestClient, headers: str, superuser: bool = False
+) -> Union[tuple[dict[str, str], Any], tuple[None, None]]:  # type: ignore
     email = f"dmitriy.golub+{random.choice(range(111111, 999999))}@gmail.com"
     password = "superpassword123"
 
@@ -39,18 +44,26 @@ def create_user(client: TestClient, headers: Dict[str, str], superuser=False):
         "is_active": True,
         "is_superuser": superuser,
         "full_name": "Dmitriy Golub",
-        "password": password
+        "password": password,
     }
-    response = client.post(f"{settings.API_V1_STR}/users/", json=user_data, headers=headers)
+    response = client.post(
+        f"{settings.API_V1_STR}/users/", json=user_data, headers=headers
+    )
     if response.status_code == 200:
         response = response.json()
-        return {'username': email, "password": password}, response['id']
+        return dict(username=email, password=password), response["id"]
     return None, None
 
-def create_user_and_login(client: TestClient, headers: Dict[str, str], superuser=False):
+
+def create_user_and_login(
+    client: TestClient, headers: str, superuser: bool = False
+) -> tuple[dict[str, str], str]:  # type: ignore
     login_user_data, user_id = create_user(client, headers, superuser)
-    response_login = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_user_data).json()
-    return {"Authorization": f"Bearer {response_login['access_token']}"}, user_id
+    response_login = client.post(
+        f"{settings.API_V1_STR}/login/access-token", data=login_user_data
+    ).json()
+    return {"Authorization": f"Bearer {response_login['access_token']}"}, user_id  # type: ignore
+
 
 async def authentication_token_from_email(
     *, client: TestClient, email: str, db: Session
@@ -64,7 +77,7 @@ async def authentication_token_from_email(
     user = await crud.user.get_by_email(db, email=email)
     if not user:
         user_in_create = UserCreate(username=email, email=email, password=password)
-        user = await crud.user.create(db, obj_in=user_in_create)
+        user = await crud.user.create(db, obj_in=user_in_create)  # type: ignore
     else:
         user_in_update = UserUpdate(password=password)
         user = await crud.user.update(db, db_obj=user, obj_in=user_in_update)
