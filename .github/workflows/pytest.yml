@@ -27,3 +27,15 @@ jobs:
         ../../../venv/bin/pytest --cache-clear --cov=app > pytest-coverage.txt
     - name: Comment coverage
       uses: coroo/pytest-coverage-commentator@v1.0.2
+    - name: Build coverage percentage
+      run: |
+        echo COVERAGE=$(export $(cat .env|xargs);cd backend/app/app;../../../venv/bin/pytest --cache-clear --cov --cov-report term | grep "TOTAL" | awk '{print $4}') >> $GITHUB_ENV
+    - name: Create coverage Badge
+      uses: schneegans/dynamic-badges-action@v1.4.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: 730cda43e9bff219b52954a6390b1c24
+        filename: mongotech.json
+        label: PyTest
+        message: ${{ env.COVERAGE }}
+        color: success

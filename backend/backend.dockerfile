@@ -2,14 +2,16 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
 WORKDIR /app/
 
-RUN cd /app
-RUN python3.9 -m venv venv
-RUN . ./venv/bin/activate
-RUN apt install gcc -y
-RUN pip install --upgrade pip
-RUN pip install poetry
+# Install Poetry
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
+    poetry config virtualenvs.create false
+
+
 COPY ./app/pyproject.toml ./app/poetry.lock* /app/
-RUN poetry install
+RUN poetry install --no-root
+
 
 COPY ./app /app
 ENV PYTHONPATH=/app

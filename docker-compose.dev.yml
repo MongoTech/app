@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env
+
+  frontend:
+    container_name: $DOCKER_IMAGE_FRONTEND
+    image: $DOCKER_IMAGE_FRONTEND
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        FRONTEND_ENV: dev
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+  backend:
+    container_name: $DOCKER_IMAGE_BACKEND
+    image: $DOCKER_IMAGE_BACKEND
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    build:
+      context: ./backend
+      dockerfile: backend.dockerfile
+    ports:
+      - "8001:8001"
+
+  celeryworker:
+    container_name: $DOCKER_IMAGE_CELERYWORKER
+    image: $DOCKER_IMAGE_CELERYWORKER
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    volumes:
+      - ./backend/app:/code/app
+    environment:
+      - SERVER_NAME=${DOMAIN}
+      - SERVER_HOST=https://${DOMAIN}
+    build:
+      context: ./backend
+      dockerfile: celeryworker.dockerfile
