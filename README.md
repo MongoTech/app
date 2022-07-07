@@ -6,7 +6,7 @@
 ![PyTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/dagolub/730cda43e9bff219b52954a6390b1c24/raw/mongotech.json)
 
 
-## Before you start you neeed
+## Before you start you need
 
 * [Docker+Docker Compose](https://www.docker.com/ + https://docs.docker.com/compose/install/).
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
@@ -16,19 +16,15 @@
 Later you will need:
 * [NodeJS 16+npm](https://nodejs.org/en/)
 
-## Add ssh-keys for you profile
-You need add keys [here](https://gitlab.com/-/profile/keys) [instruction how to generate](https://coderlessons.com/tutorials/devops/vyuchit-gitlab/gitlab-nastroika-kliucha-ssh)
-
 ## Git clone 
-`git clone git@gitlab.com:mongodb.tech/app.git`
+`git clone https://github.com/MongoTech/app.git`
 
 ## Install venv
 `cd app` <br />
 `python3.9 -m venv venv` <br />
 `source ./venv/bin/activate`
 
-## Verfify python version
-
+## Verify python version
 `python --version` <br />
 `Python 3.9.12`
 
@@ -41,7 +37,7 @@ Main thing is monga and provisioning
 `pip install poetry`
 
 ## Install poetry dependencies
-`cd backend\app\app` <br />
+`cd backend/app/app` <br />
 `poetry install`
 
 ## Run application
@@ -51,14 +47,14 @@ Main thing is monga and provisioning
 
 [Postman](https://www.postman.com/downloads/)
 
-## Configure first request Get Token
+## Configure first request to Get Token
 
 [get token request](https://gitlab.com/mongodb.tech/app/-/raw/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
 [add tests to save token](https://gitlab.com/mongodb.tech/app/-/blob/main/docs/Screenshot_2022-06-13_at_09.59.11.png)
 
 In enviroment you need to define HOST = http://localhost:8001/api/v1 and pickup username and password from .env file
 
-## Before commit you need Run
+## Before commit you need to Run
 `./test.sh`
 This run all linters and pytest
 
