@@ -13,8 +13,8 @@ class Ec2Auth(BaseModel):
 
 class Ec2Create(Ec2Auth):
     image_id: Optional[str] = configs.EC2_IMAGE_ID
-    min_count: Optional[int] = configs.EC2_MIN_COUNT
-    max_count: Optional[int] = configs.EC2_MAX_COUNT
+    min_count: Optional[int] = 1
+    max_count: Optional[int] = 1
     instance_type: Optional[str] = configs.EC2_INSTANCE_TYPE
     key_name: str
 

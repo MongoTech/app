@@ -1,3 +1,5 @@
+from typing import Union
+
 import boto3
 from fastapi import APIRouter
 
@@ -7,9 +9,7 @@ router = APIRouter()
 
 
 @router.post("/create-ec2-instance")
-def create_ec2_instance(
-        body: Ec2Create
-):
+def create_ec2_instance(body: Ec2Create) -> Union[Exception, dict]:
     """
     Create aws ec2 instance
     """
@@ -35,9 +35,7 @@ def create_ec2_instance(
 
 
 @router.post("/create-key-pair")
-def create_key_pair(
-        body: KeyPairCreate
-):
+def create_key_pair(body: KeyPairCreate) -> Union[Exception, dict]:
     """
     Create aws KeyPair
     """
@@ -59,9 +57,7 @@ def create_key_pair(
 
 
 @router.post("/create-security-group")
-def create_security_group(
-        body: SecurityGroupCreate
-):
+def create_security_group(body: SecurityGroupCreate) -> Union[Exception, dict]:
     """
     Create aws security group
     """
