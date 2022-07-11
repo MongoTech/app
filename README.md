@@ -17,7 +17,7 @@ Later you will need:
 * [NodeJS 16+npm](https://nodejs.org/en/)
 
 ## Git clone 
-`git clone https://github.com/MongoTech/app.git`
+`git clone git@gitlab.com:mongodb.tech/app.git`
 
 ## Install venv
 `cd app` <br />
