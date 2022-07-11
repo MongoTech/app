@@ -29,9 +29,7 @@ def create_ec2_instance(body: Ec2Create) -> Union[Exception, dict]:
         )
     except Exception as exc:
         return exc
-    return {
-        "EC2_instance_id": ec2_instance[0].id,
-    }
+    return {"EC2_instance_id": ec2_instance[0].id}
 
 
 @router.post("/create-key-pair")
@@ -73,12 +71,8 @@ def create_security_group(body: SecurityGroupCreate) -> Union[Exception, dict]:
             existing_security_groups = ec2_client.describe_security_groups()
             vpc_id = existing_security_groups["SecurityGroups"][0].get("VpcId")
         security_group = ec2_client.create_security_group(
-            GroupName=body.group_name,
-            Description=body.description,
-            VpcId=vpc_id
+            GroupName=body.group_name, Description=body.description, VpcId=vpc_id
         )
     except Exception as exc:
         return exc
-    return {
-        "GroupId": security_group.get("GroupId"),
-    }
+    return {"GroupId": security_group.get("GroupId")}
