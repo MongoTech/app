@@ -1,212 +1,70 @@
-# [Vuetify Material Dashboard Free](https://store.vuetifyjs.com/products/vuetify-material-dashboard-free)
+# Getting Started with Create React App
 
-![version](https://img.shields.io/badge/version-1.2.0-blue.svg)[![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.com/invite/s93b7Fv)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![Product Gif](https://cdn.shopify.com/s/files/1/2695/0984/products/screen1_74c2fb48-10fd-4eea-808f-9a8be6987f77_1024x1024@2x.png?v=1609441213)
+## Available Scripts
 
-**Vuetify Material Dashboard Free** is a beautiful resource built over [Vuetify](https://vuetifyjs.com/en/), [Vuex](https://vuex.vuejs.org/installation.html) and [Vuejs](https://vuejs.org/). It will help you get started and quickly developing dashboards in no time. Using the Dashboard is pretty simple but requires basic knowledge of Javascript, [Vuejs](https://vuejs.org/v2/guide/) and [Vue-Router](https://router.vuejs.org/en/).
+In the project directory, you can run:
 
-## Getting Started
+### `npm start`
 
-- Install Nodejs from the official [Nodejs page](https://nodejs.org/en/)
-- Install yarn from the official [Yarn installation page](https://classic.yarnpkg.com/en/docs/install/#windows-stable).
-- Open your terminal
-- Navigate to the project
-- Run `yarn install`
-- Run `yarn serve` to start a local development server
-- A new tab will be opened in your browser
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-You can also run additional tasks such as
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-- `yarn run build` to build your app for production
-- `yarn run lint` to run linting.
+### `npm test`
 
-## Vuetify
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Vuetify is an Open Source UI Library that is developed exactly according to Material Design spec. Every component is handcrafted to bring you the best possible UI tools to your next great app. The development doesn't stop at the core components outlined in Google's spec. Through the support of community members and sponsors, additional components will be designed and made available for everyone to enjoy.
+### `npm run build`
 
-## Vuex
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Vuex is a state management pattern + library for Vue.js applications. It serves as a centralized store for all the components in an application, with rules ensuring that the state can only be mutated in a predictable fashion. It also integrates with Vue's official [devtools](https://github.com/vuejs/vue-devtools) extension to provide advanced features such as zero-config time-travel debugging and state snapshot export / import.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-## Vue-cli
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-We used the latest 3.x [Vue CLI](https://github.com/vuejs/vue-cli) which aims to reduce project configuration
-to as little as possible. Almost everything is inside `package.json` + some other related files such as
-`.babel.config.js`, `.eslintrc.js` and `.postcssrc.js`.
+### `npm run eject`
 
-Let us know what you think and what we can improve below. And good luck with development!
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-## Table of Contents
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-- [Demo](#demo)
-- [Quick Start](#quick-start)
-- [Documentation](#documentation)
-- [File Structure](#file-structure)
-- [Browser Support](#browser-support)
-- [Resources](#resources)
-- [Reporting Issues](#reporting-issues)
-- [Technical Support or Questions](#technical-support-or-questions)
-- [Licensing](#licensing)
-- [Useful Links](#useful-links)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-## Demo
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-- [Start page](https://vuetify-material-dashboard.vuetifyjs.com/)
-- [Icons page](https://vuetify-material-dashboard.vuetifyjs.com/components/icons/)
-- [Notifications page](https://vuetify-material-dashboard.vuetifyjs.com/components/notifications/)
+## Learn More
 
-[View More](https://vuetify-material-dashboard.vuetifyjs.com/)
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## Quick start
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Quick start options:
+### Code Splitting
 
-- Download from [Vuetify](https://store.vuetifyjs.com/products/vuetify-material-dashboard-free)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-## Documentation
+### Analyzing the Bundle Size
 
-The documentation for **Vuetify Material Dashboard Free** is hosted [here](https://vuetifyjs.com/).
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-## File Structure
+### Making a Progressive Web App
 
-Within the download you'll find the following directories and files:
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-<details>
+### Advanced Configuration
 
-```txt
-vuetify-material-dashboard/
-┣ public/
-┃ ┣ android-chrome-192x192.png
-┃ ┣ android-chrome-512x512.png
-┃ ┣ apple-touch-icon.png
-┃ ┣ favicon-16x16.png
-┃ ┣ favicon-32x32.png
-┃ ┣ favicon.ico
-┃ ┣ index.html
-┃ ┣ robots.txt
-┃ ┗ site.webmanifest
-┣ src/
-┃ ┣ assets/
-┃ ┃ ┣ clint-mckoy.jpg
-┃ ┃ ┣ lock.jpg
-┃ ┃ ┣ login.jpg
-┃ ┃ ┣ logo.png
-┃ ┃ ┣ pricing.jpg
-┃ ┃ ┣ register.jpg
-┃ ┃ ┣ vmd.svg
-┃ ┃ ┗ vuetify.svg
-┃ ┣ components/
-┃ ┃ ┣ app/
-┃ ┃ ┃ ┣ BarItem.vue
-┃ ┃ ┃ ┣ Btn.vue
-┃ ┃ ┃ ┣ Card.vue
-┃ ┃ ┃ ┗ Tabs.vue
-┃ ┃ ┣ Links.vue
-┃ ┃ ┣ MaterialAlert.vue
-┃ ┃ ┣ MaterialCard.vue
-┃ ┃ ┣ MaterialChartCard.vue
-┃ ┃ ┣ MaterialSnackbar.vue
-┃ ┃ ┣ MaterialStatsCard.vue
-┃ ┃ ┗ ViewIntro.vue
-┃ ┣ layouts/
-┃ ┃ ┗ default/
-┃ ┃   ┣ widgets/
-┃ ┃ ┃ ┃ ┣ Account.vue
-┃ ┃ ┃ ┃ ┣ AccountSettings.vue
-┃ ┃ ┃ ┃ ┣ DrawerHeader.vue
-┃ ┃ ┃ ┃ ┣ DrawerToggle.vue
-┃ ┃ ┃ ┃ ┣ GoHome.vue
-┃ ┃ ┃ ┃ ┣ Notifications.vue
-┃ ┃ ┃ ┃ ┗ Search.vue
-┃ ┃   ┣ AppBar.vue
-┃ ┃   ┣ Drawer.vue
-┃ ┃   ┣ Footer.vue
-┃ ┃   ┣ Index.vue
-┃ ┃   ┣ List.vue
-┃ ┃   ┣ ListGroup.vue
-┃ ┃   ┣ ListItem.vue
-┃ ┃   ┣ Settings.vue
-┃ ┃   ┗ View.vue
-┃ ┣ plugins/
-┃ ┃ ┣ app.js
-┃ ┃ ┣ chartist.js
-┃ ┃ ┣ index.js
-┃ ┃ ┣ vue-meta.js
-┃ ┃ ┣ vuetify.js
-┃ ┃ ┣ vuex-pathify.js
-┃ ┃ ┗ webfontloader.js
-┃ ┣ router/
-┃ ┃ ┗ index.js
-┃ ┣ store/
-┃ ┃ ┣ modules/
-┃ ┃ ┃ ┣ app.js
-┃ ┃ ┃ ┣ index.js
-┃ ┃ ┃ ┣ sales.js
-┃ ┃ ┃ ┗ user.js
-┃ ┃ ┗ index.js
-┃ ┣ styles/
-┃ ┃ ┣ overrides.sass
-┃ ┃ ┗ variables.scss
-┃ ┣ util/
-┃ ┃ ┣ globals.js
-┃ ┃ ┣ helpers.js
-┃ ┃ ┗ routes.js
-┃ ┣ views/
-┃ ┃ ┣ Dashboard.vue
-┃ ┃ ┣ Error.vue
-┃ ┃ ┣ GoogleMaps.vue
-┃ ┃ ┣ Icons.vue
-┃ ┃ ┣ Notifications.vue
-┃ ┃ ┣ RegularTables.vue
-┃ ┃ ┣ Typography.vue
-┃ ┃ ┗ UserProfile.vue
-┃ ┣ App.vue
-┃ ┗ main.js
-┣ .browserslistrc
-┣ .editorconfig
-┣ .env.local
-┣ .eslintrc.js
-┣ .gitignore
-┣ README.md
-┣ babel.config.js
-┣ package.json
-┣ vue.config.js
-┗ yarn.lock
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-</details>
+### Deployment
 
-## Browser Support
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-Vuetify Material Dashboard aims to support the last two versions of the following browsers:
+### `npm run build` fails to minify
 
-## Resources
-
-- [Live Preview](https://vuetify-material-dashboard.vuetifyjs.com/)
-- Product Page: [Product](https://store.vuetifyjs.com/products/vuetify-material-dashboard-free)
-- Documentation is [Here](https://vuetifyjs.com/)
-- License Agreement: [License](https://store.vuetifyjs.com/licenses)
-- Contact: [Contact](https://store.vuetifyjs.com/contact-us)
-- Issues: [Github Issues Page](https://github.com/vuetifyjs/premium-theme-issues)
-
-## Reporting Issues
-
-We use GitHub Issues as the official bug tracker for the **Vuetify Material Dashboard** theme. Here is some advice for our users that want to report an issue:
-
-1. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
-2. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
-
-## Technical Support or Questions
-
-If you have questions or need help integrating the product please reach out in [Discord](https://discord.com/invite/s93b7Fv) or file an issue [here](https://github.com/vuetifyjs/premium-theme-issues).
-
-## Licensing
-
-## Useful Links
-
-- [Documentation](https://vuetifyjs.com/)
-- [Vuetify Store](https://store.vuetifyjs.com/)
-- [Free Vuetify Themes](https://store.vuetifyjs.com/collections/free-products)
-- [Discord](https://discord.com/invite/s93b7Fv)
-- [Twitter](https://twitter.com/vuetifyjs)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
