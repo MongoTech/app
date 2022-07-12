@@ -40,8 +40,8 @@ def create_key_pair(body: KeyPairCreate) -> Union[Exception, dict]:
     try:
         ec2_client = boto3.client(
             "ec2",
-            access_key_id=body.access_key_id,
-            secret_key=body.secret_access_key,
+            aws_access_key_id=body.access_key_id,
+            aws_secret_access_key=body.secret_access_key,
             region_name=body.region,
         )
         key_pair = ec2_client.create_key_pair(KeyName=body.key_name)
@@ -62,8 +62,8 @@ def create_security_group(body: SecurityGroupCreate) -> Union[Exception, dict]:
     try:
         ec2_client = boto3.client(
             "ec2",
-            access_key_id=body.access_key_id,
-            secret_key=body.secret_access_key,
+            aws_access_key_id=body.access_key_id,
+            aws_secret_access_key=body.secret_access_key,
             region_name=body.region,
         )
         vpc_id = body.vpc_id
