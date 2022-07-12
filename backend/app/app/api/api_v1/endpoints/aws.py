@@ -3,7 +3,7 @@ from typing import Union
 import boto3
 from fastapi import APIRouter
 
-from app.schemas.aws import Ec2Create, KeyPairCreate, SecurityGroupCreate
+from app.schemas.aws import Ec2Create, KeyPairCreate, SecurityGroupCreate, SecurityGroupConfigure
 
 router = APIRouter()
 
@@ -11,7 +11,7 @@ router = APIRouter()
 @router.post("/create-ec2-instance")
 def create_ec2_instance(body: Ec2Create) -> Union[Exception, dict]:
     """
-    Create aws ec2 instance
+    Create aws EC2 instance
     """
     try:
         ec2_resource = boto3.resource(
@@ -26,6 +26,16 @@ def create_ec2_instance(body: Ec2Create) -> Union[Exception, dict]:
             MaxCount=body.max_count,
             InstanceType=body.instance_type,
             KeyName=body.key_name,
+            BlockDeviceMappings=[
+                {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                        "DeleteOnTermination": True,
+                        "VolumeSize": body.volume_size,
+                    },
+                },
+            ],
+            SecurityGroups=[body.security_group_name]
         )
     except Exception as exc:
         return exc
@@ -76,3 +86,48 @@ def create_security_group(body: SecurityGroupCreate) -> Union[Exception, dict]:
     except Exception as exc:
         return exc
     return {"GroupId": security_group.get("GroupId")}
+
+
+@router.post("/configure-security-group/{group_id}")
+def configure_security_group(group_id: str, body: SecurityGroupConfigure) -> Union[Exception, dict]:
+    """
+    Configure inbound/outbound rules in aws security group
+    """
+    try:
+        ec2_client = boto3.client(
+            "ec2",
+            aws_access_key_id=body.access_key_id,
+            aws_secret_access_key=body.secret_access_key,
+            region_name=body.region,
+        )
+        ec2_client.authorize_security_group_ingress(
+            GroupId=group_id,
+            IpPermissions=[
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": body.from_port_inbound,
+                    "ToPort": body.to_port_inbound,
+                    "IpRanges": [{
+                        "CidrIp": body.cidr_ip_inbound,
+                        "Description": body.inbound_description,
+                    }],
+                },
+            ]
+        )
+        ec2_client.authorize_security_group_egress(
+            GroupId=group_id,
+            IpPermissions=[
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": body.from_port_outbound,
+                    "ToPort": body.to_port_outbound,
+                    "IpRanges": [{
+                        "CidrIp": body.cidr_ip_outbound,
+                        "Description": body.outbound_description,
+                    }],
+                },
+            ]
+        )
+    except Exception as exc:
+        return exc
+    return {"SecurityGroups": ec2_client.describe_security_groups(GroupIds=[group_id]).get("SecurityGroups")}
