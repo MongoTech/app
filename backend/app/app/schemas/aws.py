@@ -13,12 +13,12 @@ class Ec2Auth(BaseModel):
 
 class Ec2Create(Ec2Auth):
     image_id: Optional[str] = configs.EC2_IMAGE_ID
-    min_count: Optional[int] = configs.EC2_MIN_COUNT
-    max_count: Optional[int] = configs.EC2_MAX_COUNT
+    min_count: Optional[int] = int(configs.EC2_MIN_COUNT)
+    max_count: Optional[int] = int(configs.EC2_MAX_COUNT)
     instance_type: Optional[str] = configs.EC2_INSTANCE_TYPE
     key_name: str
     security_group_name: Optional[str]
-    volume_size: Optional[int] = configs.EBS_VOLUME_SIZE
+    volume_size: Optional[int] = int(configs.EBS_VOLUME_SIZE)
 
 
 class KeyPairCreate(Ec2Auth):
