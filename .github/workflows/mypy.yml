@@ -17,8 +17,10 @@ jobs:
         source ./venv/bin/activate
         pip install poetry
         pip install --upgrade pip
-        poetry env use 3.9
-        cd backend/app
         ls -la
+        poetry env use 3.9
+        ls -la
+        cd backend/app;ls -la
+        
         poetry install
         ../../venv/bin/mypy ./
