@@ -2,7 +2,7 @@
 name = "app"
 version = "0.1.0"
 description = ""
-authors = ["Dmitriy Golub <dg@mongodb.tech>"]
+authors = ["Dmitriy Golub <dg@mongo.one>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
