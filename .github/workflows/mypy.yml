@@ -18,6 +18,5 @@ jobs:
         pip install poetry
         pip install --upgrade pip
         cd backend/app
-        poetry env use 3.9
         poetry install
         ../../venv/bin/mypy ./
