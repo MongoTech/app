@@ -95,7 +95,7 @@ async def read_user_by_id(
     """
     Get a specific user by id.
     """
-    user = await crud.user.get(db, id=user_id) # type: ignore
+    user = await crud.user.get(db, id=user_id)  # type: ignore
     if user["email"] == current_user["email"]:  # type: ignore
         return user
     if not crud.user.is_superuser(current_user):
