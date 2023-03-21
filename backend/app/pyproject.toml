@@ -31,6 +31,7 @@ email-validator = "^1.2.1"
 sqlalchemy-stubs = "^0.4"
 platformdirs = "2.6.2"
 fastapi = "^0.95.0"
+httpx = "^0.23.3"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.1.1"
