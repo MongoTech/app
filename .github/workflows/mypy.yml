@@ -18,5 +18,5 @@ jobs:
         pip install poetry
         pip install --upgrade pip
         cd backend/app
-        poetry install --no-dev
+        poetry install
         ../../venv/bin/mypy ./
