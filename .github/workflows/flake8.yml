@@ -17,3 +17,6 @@ jobs:
         run: pip install flake8
       - name: Run flake8
         uses: suo/flake8-github-action@releases/v1
+        with:
+          ignore: .venv
+          max_line_length: 160
