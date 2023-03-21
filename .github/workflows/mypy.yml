@@ -15,8 +15,8 @@ jobs:
       run: |
         python3 -m venv venv
         source ./venv/bin/activate
-        pip install poetry --no-dev
+        pip install poetry
         pip install --upgrade pip
         cd backend/app
-        poetry install
+        poetry install --no-dev
         ../../venv/bin/mypy ./

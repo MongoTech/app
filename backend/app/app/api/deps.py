@@ -37,7 +37,7 @@ async def get_current_user(
             detail="Could not validate credentials",
         ) from e
 
-    user = await crud.user.get(db, id=token_data["sub"])
+    user = await crud.user.get(db, id=token_data["sub"])  # type: ignore
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user

@@ -13,7 +13,7 @@ ALGORITHM = "HS256"
 
 
 def create_access_token(
-    subject: Union[str, Any], expires_delta: timedelta = None
+    subject: Union[str, Any], expires_delta: timedelta = None   # type: ignore
 ) -> str:
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta

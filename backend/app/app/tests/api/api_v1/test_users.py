@@ -210,7 +210,6 @@ async def notest_retrieve_users(
 async def test_get_current_user_invalid_token(
     client: TestClient, superuser_token_headers: str, db: Session
 ) -> None:
-
     r = client.get(
         f"{settings.API_V1_STR}/users/me",
         headers={"Authorization": "Bearer invalid token"},
