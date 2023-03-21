@@ -83,7 +83,7 @@ async def test_update_current_user_by_me(
     data = {"email": "me@example.com", "password": "password", "full_name": "User name"}
     r = client.put(
         f"{settings.API_V1_STR}/users/{user['id']}",  # type: ignore
-        headers=superuser_token_headers,
+        headers=superuser_token_headers,  # type: ignore
         json=data,
     )
     assert 200 == r.status_code
@@ -98,7 +98,7 @@ async def test_update_current_user_by_me_does_not_exist(
     await crud.user.remove(db=db, user_id=user["id"])  # type: ignore
     r = client.put(
         f"{settings.API_V1_STR}/users/{user['id']}",  # type: ignore
-        headers=superuser_token_headers,
+        headers=superuser_token_headers,  # type: ignore
         json=data,
     )
     assert 404 == r.status_code

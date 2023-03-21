@@ -47,11 +47,11 @@ def create_user(
         "password": password,
     }
     response = client.post(
-        f"{settings.API_V1_STR}/users/", json=user_data, headers=headers
+        f"{settings.API_V1_STR}/users/", json=user_data, headers=headers  # type: ignore
     )
     if response.status_code == 200:
         response = response.json()
-        return dict(username=email, password=password), response["id"]
+        return dict(username=email, password=password), response["id"]  # type: ignore
     return None, None
 
 
