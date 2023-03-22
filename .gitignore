@@ -1,6 +1,5 @@
 .venv
 .idea
-.vscode
 .mypy_cache
 docker-stack.yml
 frontent/node_modules
