@@ -1,0 +1,120 @@
+.market-trade input {
+  border: 1px solid #e0e3eb;
+  font-weight: 300;
+}
+.market-trade input:focus {
+  box-shadow: none;
+  border-color: #e0e3eb;
+}
+.market-trade {
+  border: 1px solid #e0e3eb;
+  border-radius: 2px;
+}
+.market-trade .tab-content {
+  height: 358px;
+  overflow-y: auto;
+  padding: 14px;
+}
+
+.market-trade .nav .nav-item .nav-link.active {
+  background: #fff;
+  color: #007bff;
+}
+
+.market-trade .nav .nav-item .nav-link {
+  color: #4a4a4a;
+  padding: 0;
+}
+
+.market-trade .input-group-text {
+  background: #eff2f6;
+  color: #4a4a4a;
+  font-weight: 300;
+}
+
+.market-trade .input-group {
+  margin-bottom: 14px;
+}
+.market-trade .nav-tabs .nav-link.active,
+.market-trade .nav-tabs .nav-link:hover {
+  border-color: transparent;
+  color: #007bff;
+}
+.market-trade .nav-tabs .nav-link {
+  color: #4a4a4a;
+  padding-bottom: 0px;
+  padding-top: 12px;
+}
+.market-trade .nav-tabs {
+  border-bottom: 1px solid transparent;
+}
+.market-trade-list li a {
+  background: #eff2f6;
+  color: #4a4a4a;
+  font-weight: 300;
+  padding: 3px 15px;
+  border-radius: 5px;
+}
+
+.market-trade-list li {
+  display: inline-block;
+  margin-right: 7px;
+  margin-bottom: 7px;
+}
+.market-trade-list li:last-child {
+  margin-right: 0;
+}
+.market-trade-buy .market-trade-list li a:hover {
+  text-decoration: none;
+  background: #26a69a;
+  color: #fff;
+}
+.market-trade-sell .market-trade-list li a:hover {
+  text-decoration: none;
+  background: #ef5350;
+  color: #fff;
+}
+
+.market-trade button.buy,
+.market-trade button.sell {
+  background: #26de81;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  margin-top: 30px;
+  width: 100%;
+  box-shadow: 0px 0px 15px 0px #26de81ad;
+}
+.market-trade button.sell {
+  background: #ff231f;
+  box-shadow: 0px 0px 15px 0px #ff231fad;
+}
+.market-trade p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #4a4a4a;
+}
+.market-trade p span {
+  float: right;
+}
+
+.market-trade-list {
+  margin-bottom: 23px;
+}
+.market-trade-item {
+  width: 100%;
+}
+
+.market-trade-buy,
+.market-trade-sell {
+  width: 100%;
+}
+
+.market-trade-buy {
+  padding: 0 15px 0 0;
+}
+
+.market-trade-sell {
+  padding: 0 0 0 15px;
+  border-left: 1px solid #e0e3eb;
+}

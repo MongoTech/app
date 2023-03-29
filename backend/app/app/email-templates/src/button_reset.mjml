@@ -1,0 +1,9 @@
+
+
+    <mj-button align="center" background-color="#90ee90" border-radius="100px" border="none" color="black"
+               font-family="Open Sans, Helvetica, Arial, sans-serif" font-size="13px" font-weight="normal"
+               href="{{ link }}" inner-padding="15px 25px 15px 25px">
+        <mj-text>Reset password</mj-text>
+    </mj-button>
+
+

@@ -1,0 +1,40 @@
+
+.market-news {
+  border: 1px solid #e0e3eb;
+  border-radius: 2px;
+}
+
+.market-news li a {
+  color: #4a4a4a;
+  font-size: 11px;
+  display: block;
+  text-decoration: none;
+}
+.market-news li:hover {
+  background: #f6f8f9;
+}
+.market-news li strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+  color: #4a4a4ac7;
+}
+
+.market-news li span {
+  display: block;
+  margin-top: 5px;
+}
+
+.market-news li {
+  border-bottom: 1px solid #f0f3fa;
+  padding: 10px 13px;
+}
+
+.market-news li:last-child {
+  border: 0;
+}
+
+.market-news ul {
+  height: 348px;
+  overflow-y: auto;
+}

@@ -1,0 +1,21 @@
+<mjml owa="desktop" version="4.3.0">
+    <mj-head>
+        <mj-include path="./style.mjml"/>
+    </mj-head>
+    <mj-body>
+        <mj-include path="./image.mjml"/>
+        <mj-section>
+            <mj-column>
+                <mj-text>
+                    <h1>You&apos;re almost there!</h1>
+                </mj-text>
+                <mj-text>
+                    <p>Hi {{ full_name }}, Thank you for signing up to.</p>
+                    <p>To confirm your account, simply click on the button below:</p>
+                </mj-text>
+                <mj-include path="./button.mjml" />
+            </mj-column>
+        </mj-section>
+        <!--<mj-include path="./social.mjml" />-->
+    </mj-body>
+</mjml>

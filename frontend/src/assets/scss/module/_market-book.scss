@@ -1,0 +1,152 @@
+.order-book table,
+.order-book tr,
+.order-book td,
+.order-book th {
+  width: 100%;
+  table-layout: fixed;
+}
+.order-book tr {
+  float: left;
+  clear: both;
+  overflow: hidden;
+}
+.order-book .table thead th {
+  font-weight: 400;
+  font-size: 12px;
+}
+.order-book thead tr {
+  border-bottom: 1px solid #e0e3eb;
+}
+.order-book tbody tr,
+.order-book tbody td {
+  border: none;
+}
+.order-book {
+  border: 1px solid #e0e3eb;
+  border-radius: 2px;
+}
+.red-bg-80,
+.red-bg-60,
+.red-bg-40,
+.red-bg-20,
+.red-bg-10,
+.red-bg-8,
+.red-bg-5,
+.red-bg,
+.green-bg-80,
+.green-bg-60,
+.green-bg-40,
+.green-bg-20,
+.green-bg-10,
+.green-bg-8,
+.green-bg-5,
+.green-bg {
+  position: relative;
+}
+.red-bg-80:after,
+.red-bg-60:after,
+.red-bg-40:after,
+.red-bg-20:after,
+.red-bg-10:after,
+.red-bg-8:after,
+.red-bg-5:after,
+.red-bg:after {
+  position: absolute;
+  content: "";
+  background: #de262663;
+  right: 0;
+  top: 0;
+  width: 280px;
+  height: 45px;
+}
+.red-bg-60:after {
+  width: 240px;
+}
+.red-bg-40:after {
+  width: 200px;
+}
+.red-bg-20:after {
+  width: 160px;
+}
+.red-bg-10:after {
+  width: 120px;
+}
+.red-bg-8:after {
+  width: 80px;
+}
+.red-bg-5:after {
+  width: 50px;
+}
+.red-bg:after {
+  width: 30px;
+}
+
+.green-bg-80:after,
+.green-bg-60:after,
+.green-bg-40:after,
+.green-bg-20:after,
+.green-bg-10:after,
+.green-bg-8:after,
+.green-bg-5:after,
+.green-bg:after {
+  position: absolute;
+  content: "";
+  background: #26de8163;
+  right: 0;
+  top: 0;
+  width: 280px;
+  height: 45px;
+}
+.green-bg-60:after {
+  width: 240px;
+}
+.green-bg-40:after {
+  width: 200px;
+}
+.green-bg-20:after {
+  width: 160px;
+}
+.green-bg-10:after {
+  width: 120px;
+}
+.green-bg-8:after {
+  width: 80px;
+}
+.green-bg-5:after {
+  width: 50px;
+}
+.green-bg:after {
+  width: 30px;
+}
+.ob-heading span {
+  color: #4a4a4a;
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ob-heading td {
+  padding: 5px 12px;
+  cursor: default;
+}
+
+.ob-heading tr {
+  border-top: 1px solid #f0f3fa !important;
+  border-bottom: 1px solid #f0f3fa !important;
+}
+.ob-heading tr:hover {
+  background: #fff;
+}
+.ob-heading td:first-child {
+  width: 65%;
+}
+
+.order-book tbody {
+  display: block;
+  overflow-y: auto;
+  height: 211px;
+}
+
+tbody.ob-heading {
+  height: inherit;
+}

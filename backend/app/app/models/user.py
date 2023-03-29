@@ -4,6 +4,7 @@ from app.db.base_class import Base
 
 
 class User(Base):
+    __tablename__ = "users"
     _id = Column(String, primary_key=True, index=True)
     full_name = Column(String, index=True)
     email = Column(String, unique=True, index=True, nullable=False)

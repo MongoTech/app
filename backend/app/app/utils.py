@@ -2,11 +2,11 @@ import logging
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional
-
+from app import schemas, crud
 import emails  # type: ignore
 from emails.template import JinjaTemplate  # type: ignore
 from jose import jwt  # type: ignore
-
+import hashlib
 from app.core.config import settings
 
 
@@ -34,26 +34,13 @@ def send_email(
     logging.info(f"send email result: {response}")
 
 
-def send_test_email(email_to: str) -> None:
-    project_name = settings.PROJECT_NAME
-    subject = f"{project_name} - Test email"
-    with open(Path(settings.EMAIL_TEMPLATES_DIR) / "test_email.html") as f:
-        template_str = f.read()
-    send_email(
-        email_to=email_to,
-        subject_template=subject,
-        html_template=template_str,
-        environment={"project_name": settings.PROJECT_NAME, "email": email_to},
-    )
-
-
 def send_reset_password_email(email_to: str, email: str, token: str) -> None:
     project_name = settings.PROJECT_NAME
     subject = f"{project_name} - Password recovery for user {email}"
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "reset_password.html") as f:
         template_str = f.read()
     server_host = settings.SERVER_HOST
-    link = f"{server_host}/reset-password?token={token}"
+    link = f"{server_host}/reset?token={token}"
     send_email(
         email_to=email_to,
         subject_template=subject,
@@ -64,6 +51,33 @@ def send_reset_password_email(email_to: str, email: str, token: str) -> None:
             "email": email_to,
             "valid_hours": settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS,
             "link": link,
+        },
+    )
+
+
+async def create_confirmation_token(db, user, email):
+    token = hashlib.md5(user["id"].encode()).hexdigest()
+    confirm = schemas.ConfirmCreate(user_id=user["id"],
+                                    email=email,
+                                    token=token,
+                                    ttl=datetime.now() + timedelta(minutes=1))
+    token = await crud.confirm.create(db=db, obj_in=confirm)
+    send_welcome_email(user["email"], user["full_name"], token=token["token"])
+
+
+def send_welcome_email(email_to: str, full_name: str, token: str) -> None:
+
+    subject = f"Congratulation you register account on MongoTech"
+    with open(Path(settings.EMAIL_TEMPLATES_DIR) / "welcome.html") as f:
+        template_str = f.read()
+
+    send_email(
+        email_to=email_to,
+        subject_template=subject,
+        html_template=template_str,
+        environment={
+            "full_name": full_name,
+            "link":  settings.SERVER_HOST + "/api/users/activate?token=" + token
         },
     )
 

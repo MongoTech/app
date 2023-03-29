@@ -1,0 +1,39 @@
+.market-history .nav {
+  background: #f5f9fc;
+}
+.market-history .nav-link {
+  color: #4a4a4a;
+  padding: 10px 13px;
+}
+
+.market-history .nav-link.active {
+  color: #007bff;
+  background: transparent;
+}
+
+.market-history thead tr th,
+.market-history tbody tr td {
+  font-weight: 400;
+}
+.market-history tbody {
+  height: 315px;
+  overflow-y: auto;
+  display: block;
+}
+
+.market-history table,
+.market-history tr,
+.market-history td,
+.market-history th {
+  width: 100%;
+  table-layout: fixed;
+}
+.market-history tr {
+  float: left;
+  clear: both;
+  overflow: hidden;
+}
+.market-history {
+  border: 1px solid #e0e3eb;
+  border-radius: 2px;
+}

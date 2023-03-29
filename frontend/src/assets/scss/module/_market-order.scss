@@ -1,0 +1,26 @@
+.market-order th {
+  width: 13%;
+}
+.no-data {
+  position: absolute;
+  right: 48%;
+  top: 48%;
+  text-align: center;
+  color: #b9c2ca;
+}
+.no-data i {
+  font-size: 100px;
+  display: block;
+  line-height: 0px;
+  color: #dce1e5;
+}
+.market-order-item {
+  color: #758696;
+  padding: 8px 15px;
+}
+.market-order {
+  border-top: 0;
+  min-height: 392px;
+  border: 1px solid #e0e3eb;
+  border-radius: 2px;
+}
