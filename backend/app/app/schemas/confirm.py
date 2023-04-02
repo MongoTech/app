@@ -1,7 +1,10 @@
-from typing import List
-from pydantic import EmailStr
-from app.schemas.base import Base
 from datetime import datetime
+from typing import List
+
+from pydantic import EmailStr
+
+from app.schemas.base import Base
+
 
 # Shared properties
 class ConfirmBase(Base):

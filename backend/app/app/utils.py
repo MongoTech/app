@@ -1,12 +1,14 @@
+import hashlib
 import logging
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional
-from app import schemas, crud
+
 import emails  # type: ignore
 from emails.template import JinjaTemplate  # type: ignore
 from jose import jwt  # type: ignore
-import hashlib
+
+from app import crud, schemas
 from app.core.config import settings
 
 

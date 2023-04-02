@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "/home/dg/web/mongotech/backend/app/app/main.py",
-            "cwd": "/home/dg/web/mongotech/backend/app/app",
+            "cwd": "/home/dg/web/mongotech",
             "console": "integratedTerminal",
             "justMyCode": true,
             "envFile": "${workspaceFolder}/.env.local"

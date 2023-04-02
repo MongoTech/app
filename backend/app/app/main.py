@@ -1,11 +1,12 @@
+import sentry_sdk
 import uvicorn  # type: ignore
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from sentry_sdk.integrations.fastapi import FastApiIntegration
 from starlette.middleware.cors import CORSMiddleware
+
 from app.api.api_v1.api import api_router
 from app.core.config import settings
-from sentry_sdk.integrations.fastapi import FastApiIntegration
-import sentry_sdk
 
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"

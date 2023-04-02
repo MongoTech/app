@@ -10,7 +10,7 @@
 
 * [Docker+Docker Compose](https://www.docker.com/ + https://docs.docker.com/compose/install/).
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Python 3.9](https://www.python.org/downloads/release/python-3913/)
+* [Python 3.10](https://www.python.org/downloads/release/python-3913/)
 * pip install --upgrade pip
 
 Later you will need:
@@ -24,13 +24,13 @@ You need add keys [here](https://gitlab.com/-/profile/keys) [instruction how to 
 
 ## Install venv
 `cd app` <br />
-`python3.9 -m venv venv` <br />
+`python3.10 -m venv venv` <br />
 `source ./venv/bin/activate`
 
 ## Verfify python version
 
 `python --version` <br />
-`Python 3.9.12`
+`Python 3.10`
 
 ## Run docker-compose
 `docker-compose up -d`
@@ -62,13 +62,6 @@ In enviroment you need to define HOST = http://localhost:8001/api/v1 and pickup 
 `./test.sh`
 This run all linters and pytest
 
-## Deploy all stack in docker containers
-
-For Intel cpu
-`docker-compose -f docker-compose.dev.yml --env-file .env up --build -d`
-
-For Arm64 cpu
-`docker-compose -f docker-compose.dev64.yml --env-file .env up --build -d`
 
 After up and running all containers, exec in backend container and run
-`python3.9 app/initial_data.py`
+`python app/initial_data.py`

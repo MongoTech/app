@@ -1,7 +1,9 @@
-from typing import TypeVar, Any
+from typing import Any, TypeVar
+
 from bson.objectid import ObjectId  # type: ignore
 from motor.motor_asyncio import AsyncIOMotorClient  # type: ignore
 from sqlalchemy.orm import Session  # type: ignore
+
 from app.crud.base import CRUDBase
 from app.db.base_class import Base
 from app.models.confirm import Confirm

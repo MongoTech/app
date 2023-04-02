@@ -1,5 +1,6 @@
-from sentry_sdk.integrations.fastapi import FastApiIntegration
 import sentry_sdk
+from sentry_sdk.integrations.fastapi import FastApiIntegration
+
 from app.core.config import settings
 
 

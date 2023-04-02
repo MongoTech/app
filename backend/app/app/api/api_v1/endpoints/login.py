@@ -1,12 +1,15 @@
+import time
 from datetime import timedelta
 from typing import Any
-from google_auth_oauthlib.flow import InstalledAppFlow
+
+import requests
+from fastapi import APIRouter, Body, Depends, HTTPException, Response
 from fastapi.responses import RedirectResponse
-from fastapi import APIRouter, Response, Depends, HTTPException, Body
 from fastapi.security import OAuth2PasswordRequestForm
+from google_auth_oauthlib.flow import InstalledAppFlow
 from sqlalchemy.orm import Session  # type: ignore
 from starlette.status import HTTP_302_FOUND
-import requests
+
 from app import crud, models, schemas
 from app.api import deps
 from app.core import security
@@ -17,7 +20,6 @@ from app.utils import (
     send_reset_password_email,
     verify_password_reset_token,
 )
-import time
 
 router = APIRouter()
 

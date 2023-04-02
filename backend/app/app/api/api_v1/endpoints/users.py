@@ -1,18 +1,18 @@
+import math
+from datetime import datetime, timedelta
 from typing import Any, List
 
-from starlette.status import HTTP_302_FOUND
-import math
-from app.core import security
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session  # type: ignore
-from datetime import datetime, timedelta
+from starlette.status import HTTP_302_FOUND
+
 from app import crud, models, schemas
 from app.api import deps
+from app.core import security
 from app.core.config import settings
-from app.utils import send_new_account_email, create_confirmation_token
-
+from app.utils import create_confirmation_token, send_new_account_email
 
 router = APIRouter()
 
