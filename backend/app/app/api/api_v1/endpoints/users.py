@@ -17,7 +17,7 @@ router = APIRouter()
 
 
 @router.get("/pagination")
-async def pagination(
+async def pagination(  # type: ignore
     per_page=10,
     db: Session = Depends(deps.get_db),
 ) -> Any:

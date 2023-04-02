@@ -23,7 +23,7 @@ router = APIRouter()
 
 
 @router.get("/social")
-def social(response: Response):
+def social(response: Response):  # type: ignore
     REDIRECT_URI = "http://localhost/api/response"
     client_config = {
         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -50,7 +50,7 @@ def social(response: Response):
 
 
 @router.get("/response")
-async def response(
+async def response(  # type: ignore
     resp: Response, state: str, code: str, db: Session = Depends(deps.get_db)
 ):
     redirect_uri = "http://localhost/api/response"

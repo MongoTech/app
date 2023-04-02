@@ -24,7 +24,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         else:
             return None
 
-    async def count(self, db: Session):
+    async def count(self, db: Session):  # type: ignore
         return await db[self.model.__tablename__].count_documents({})  # type: ignore
 
     async def get_multi(

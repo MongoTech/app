@@ -3,7 +3,7 @@ from app.core.config import settings
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 
 
-def log_errors(message):
+def log_errors(message):  # type: ignore
     sentry_sdk.init(
         dsn=settings.SENTRY_DSN,
         environment=settings.ENV,

@@ -13,7 +13,7 @@ app = FastAPI(
 
 
 @app.middleware("http")
-async def exception_handling(request: Request, call_next):
+async def exception_handling(request: Request, call_next):  # type: ignore
     try:
         return await call_next(request)
     except Exception as exc:
