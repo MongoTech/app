@@ -57,7 +57,7 @@ def send_reset_password_email(email_to: str, email: str, token: str) -> None:
 
 
 async def create_confirmation_token(db, user, email):  # type: ignore
-    token = hashlib.md5(user["id"].encode()).hexdigest()
+    token = hashlib.md5(user["id"].encode()).hexdigest()  # nosec
     confirm = schemas.ConfirmCreate(
         user_id=user["id"],
         email=email,

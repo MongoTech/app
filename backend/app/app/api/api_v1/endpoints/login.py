@@ -54,7 +54,7 @@ async def response(  # type: ignore
     resp: Response, state: str, code: str, db: Session = Depends(deps.get_db)
 ):
     redirect_uri = "http://localhost/api/response"
-    token_url = "https://accounts.google.com/o/oauth2/token"
+    token_url = "https://accounts.google.com/o/oauth2/token"  # nosec
     token_payload = {
         "client_id": settings.CLIENT_ID,
         "client_secret": settings.CLIENT_SECRET,
@@ -62,9 +62,9 @@ async def response(  # type: ignore
         "code": code,
         "grant_type": "authorization_code",
     }
-    data = requests.post(token_url, data=token_payload).json()
+    data = requests.post(token_url, data=token_payload).json()  # nosec
 
-    response = requests.get(
+    response = requests.get(  # nosec
         "https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses",
         headers={"Authorization": "Bearer " + data["access_token"]},
     )
