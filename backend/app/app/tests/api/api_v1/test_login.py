@@ -17,6 +17,7 @@ class Storage:
     reset_password_token = None
 
 
+@pytest.mark.test
 def send_email_test(**kwargs: Any) -> None:
     if "environment" in kwargs:
         Storage.reset_password_token = kwargs["environment"]["link"].split("token=")[1]

@@ -27,7 +27,7 @@ async def get_current_user(
 ) -> models.User:
     try:
         if "token" not in request.cookies:
-            raise ValidationError
+            raise ValidationError  # type: ignore
         payload = jwt.decode(
             request.cookies["token"],
             settings.SECRET_KEY,

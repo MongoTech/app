@@ -25,7 +25,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             return None
 
     async def count(self, db: Session):
-        return await db[self.model.__tablename__].count_documents({})
+        return await db[self.model.__tablename__].count_documents({})  # type: ignore
 
     async def get_multi(
         self, db: Session, *, skip: int = 0, limit: int = 100
@@ -58,12 +58,12 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     ) -> ModelType:
         obj_in = jsonable_encoder(obj_in)
 
-        user_id = db_obj["_id"] if db_obj["_id"] else ObjectId(db_obj["id"])
+        user_id = db_obj["_id"] if db_obj["_id"] else ObjectId(db_obj["id"])  # type: ignore
         await db[self.model.__tablename__].update_one({"_id": user_id}, {"$set": obj_in})  # type: ignore
         user = await db[self.model.__tablename__].find_one({"_id": user_id})  # type: ignore
         user["id"] = str(user["_id"])
         return user
 
-    async def remove(self, db: AsyncIOMotorClient, id: str) -> None:
+    async def remove(self, db: AsyncIOMotorClient, id: str) -> None:  # type: ignore
         id = ObjectId(id) if type(id) == str else id
         await db[self.model.__tablename__].delete_one({"_id": id})

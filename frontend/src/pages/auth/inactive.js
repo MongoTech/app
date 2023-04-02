@@ -7,6 +7,10 @@ import { useSelector } from "react-redux";
 const InactivePage = () =>{
     const user = useSelector((state)=>state)
     const history = useHistory()
+    // get submit response
+    const submitHandler = () => {
+        
+    }
     if (getToken() && user.is_active) {
         history.push("/dashboard")
     }

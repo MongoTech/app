@@ -41,7 +41,7 @@ async def activate(
         "is_active": True,
     }
     user = await crud.user.get(db=db, id=confirm["user_id"])
-    await crud.user.update(db=db, db_obj=user, obj_in=user_in)
+    await crud.user.update(db=db, db_obj=user, obj_in=user_in)  # type: ignore
     await crud.confirm.remove(db=db, id=confirm["_id"])
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     response.set_cookie(
@@ -49,7 +49,7 @@ async def activate(
         value=security.create_access_token(
             user["_id"], expires_delta=access_token_expires  # type: ignore
         ),
-        expires=access_token_expires,
+        expires=access_token_expires,  # type: ignore
     )
     headers = {"Location": "/dashboard"}
     raise HTTPException(status_code=HTTP_302_FOUND, headers=headers)
@@ -89,7 +89,7 @@ async def create_user(
     user = await crud.user.create(db, obj_in=jsonable_encoder(user_in))
     if settings.EMAILS_ENABLED and user_in.email:
         send_new_account_email(
-            email_to=user_in.email, username=user_in.email, password=user_in.password
+            email_to=user_in.email, username=user_in.email, password=user_in.password  # type: ignore
         )
     return user
 
@@ -199,8 +199,8 @@ async def create_user_open(
     user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
     user_in.is_superuser = False
     user_in.is_active = False
-    user = await crud.user.create(db, obj_in=user_in)
-    await create_confirmation_token(db, user, user["email"])
+    user = await crud.user.create(db, obj_in=user_in)  # type: ignore
+    await create_confirmation_token(db, user, user["email"])  # type: ignore
     return user
 
 
@@ -222,4 +222,4 @@ async def delete_user(
         raise HTTPException(status_code=404, detail="User doesn't exists")
 
     await crud.user.remove(db=db, id=id)
-    return user
+    return user  # type: ignore

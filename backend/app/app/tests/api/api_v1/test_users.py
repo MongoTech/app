@@ -109,7 +109,7 @@ async def test_get_existing_user(
 ) -> None:
     username = random_email()
     password = random_lower_string()
-    user_in = UserCreate(email=username, password=password)
+    user_in = UserCreate(email=username, password=password)  # type: ignore
     user = await crud.user.create(db, obj_in=user_in)  # type: ignore
     user_id = user["_id"]  # type: ignore
     r = client.get(
@@ -155,7 +155,7 @@ async def test_create_user_existing_username(
     username = random_email()
     # username = email
     password = random_lower_string()
-    user_in = UserCreate(email=username, password=password)
+    user_in = UserCreate(email=username, password=password)  # type: ignore
     await crud.user.create(db, obj_in=user_in)  # type: ignore
     data = {"email": username, "password": password}
     r = client.post(
@@ -189,12 +189,12 @@ async def notest_retrieve_users(
 ) -> None:
     username = random_email()
     password = random_lower_string()
-    user_in = UserCreate(email=username, password=password)
+    user_in = UserCreate(email=username, password=password)  # type: ignore
     await crud.user.create(db, obj_in=user_in)  # type: ignore
 
     username2 = random_email()
     password2 = random_lower_string()
-    user_in2 = UserCreate(email=username2, password=password2)
+    user_in2 = UserCreate(email=username2, password=password2)  # type: ignore
     await crud.user.create(db, obj_in=user_in2)  # type: ignore
 
     r = client.get(f"{settings.API_V1_STR}/users/", headers=superuser_token_headers)
@@ -225,7 +225,7 @@ async def test_get_current_user_user_not_found(
     token = user_headers_auth["Authorization"].split(" ")[1]
 
     payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[security.ALGORITHM])
-    await crud.user.remove(db=db, user_id=payload["sub"])
+    await crud.user.remove(db=db, user_id=payload["sub"])  # type: ignore
     r = client.get(f"{settings.API_V1_STR}/users/me", headers=user_headers_auth)
     assert 404 == r.status_code
 
