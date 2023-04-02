@@ -1,9 +1,8 @@
 import logging
 
+from app.db.session import database
 from tenacity import retry  # type: ignore
 from tenacity import after_log, before_log, stop_after_attempt, wait_fixed
-
-from app.db.session import database
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

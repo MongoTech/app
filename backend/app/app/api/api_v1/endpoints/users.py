@@ -2,17 +2,16 @@ import math
 from datetime import datetime, timedelta
 from typing import Any, List
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Response
-from fastapi.encoders import jsonable_encoder
-from pydantic.networks import EmailStr
-from sqlalchemy.orm import Session  # type: ignore
-from starlette.status import HTTP_302_FOUND
-
 from app import crud, models, schemas
 from app.api import deps
 from app.core import security
 from app.core.config import settings
 from app.utils import create_confirmation_token, send_new_account_email
+from fastapi import APIRouter, Body, Depends, HTTPException, Response
+from fastapi.encoders import jsonable_encoder
+from pydantic.networks import EmailStr
+from sqlalchemy.orm import Session  # type: ignore
+from starlette.status import HTTP_302_FOUND
 
 router = APIRouter()
 
@@ -23,7 +22,7 @@ async def pagination(
     db: Session = Depends(deps.get_db),
 ) -> Any:
     count = await crud.user.count(db=db)
-    return math.ceil(count/per_page)
+    return math.ceil(count / per_page)
 
 
 @router.get("/activate", response_model=Any)
@@ -39,15 +38,19 @@ async def activate(
     user_in = {
         "confirmed": datetime.now(),
         "email": confirm["email"],
-        "is_active": True
+        "is_active": True,
     }
     user = await crud.user.get(db=db, id=confirm["user_id"])
     await crud.user.update(db=db, db_obj=user, obj_in=user_in)
     await crud.confirm.remove(db=db, id=confirm["_id"])
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    response.set_cookie(key="token", value=security.create_access_token(
+    response.set_cookie(
+        key="token",
+        value=security.create_access_token(
             user["_id"], expires_delta=access_token_expires  # type: ignore
-        ), expires=access_token_expires)
+        ),
+        expires=access_token_expires,
+    )
     headers = {"Location": "/dashboard"}
     raise HTTPException(status_code=HTTP_302_FOUND, headers=headers)
 
@@ -133,9 +136,7 @@ async def stat(
     """
     Retrieve users.
     """
-    return {
-        "users": await crud.user.count(db=db)
-    }
+    return {"users": await crud.user.count(db=db)}
 
 
 @router.get("/{user_id}", response_model=schemas.User)

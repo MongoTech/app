@@ -1,9 +1,8 @@
-from sqlalchemy.orm import Session
-
 from app import crud
 from app.core.config import settings
 from app.db import base  # noqa: F401
 from app.schemas.user import UserCreate
+from sqlalchemy.orm import Session
 
 
 async def init_db(db: Session) -> None:

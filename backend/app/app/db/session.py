@@ -1,7 +1,6 @@
 import asyncio
 
 import motor.motor_asyncio  # type: ignore
-
 from app.core.config import settings
 
 MONGO_URL = f"{settings.MONGO_USER}:{settings.MONGO_PASS}@{settings.MONGO_HOST}"

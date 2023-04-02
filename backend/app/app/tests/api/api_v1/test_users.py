@@ -1,10 +1,6 @@
 from typing import Dict
 
 import pytest  # type: ignore
-from fastapi.testclient import TestClient
-from jose import jwt  # type: ignore
-from sqlalchemy.orm import Session  # type: ignore
-
 from app import crud
 from app.api.deps import get_db
 from app.core import security
@@ -14,6 +10,9 @@ from app.schemas.user import UserCreate
 from app.tests.utils.db import fake_db
 from app.tests.utils.user import create_user_and_login
 from app.tests.utils.utils import random_email, random_lower_string
+from fastapi.testclient import TestClient
+from jose import jwt  # type: ignore
+from sqlalchemy.orm import Session  # type: ignore
 
 app.dependency_overrides[get_db] = fake_db
 

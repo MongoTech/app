@@ -1,10 +1,9 @@
 from typing import Any, Optional
 from unittest.mock import MagicMock
 
+from app.core.config import settings
 from bson.objectid import ObjectId  # type: ignore
 from sqlalchemy.orm import Session
-
-from app.core.config import settings
 
 first_user_id = ObjectId()
 

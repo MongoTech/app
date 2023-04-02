@@ -1,16 +1,15 @@
 from datetime import datetime
-from typing import Any, Dict, List, Optional, TypeVar, Union
-
-from bson.objectid import ObjectId  # type: ignore
-from fastapi.encoders import jsonable_encoder
-from motor.motor_asyncio import AsyncIOMotorClient  # type: ignore
-from sqlalchemy.orm import Session  # type: ignore
+from typing import Any, Dict, Optional, TypeVar, Union
 
 from app.core.security import get_password_hash, verify_password
 from app.crud.base import CRUDBase
 from app.db.base_class import Base
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
+from bson.objectid import ObjectId  # type: ignore
+from fastapi.encoders import jsonable_encoder
+from motor.motor_asyncio import AsyncIOMotorClient  # type: ignore
+from sqlalchemy.orm import Session  # type: ignore
 
 ModelType = TypeVar("ModelType", bound=Base)
 
@@ -24,8 +23,8 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             "is_superuser": data.get("is_superuser") or False,
             "is_active": data["is_active"],
             "created": datetime.now(),
-            "access_token": data["access_token"] if "access_token" in data else '',
-            "refresh_token": data["refresh_token"] if "refresh_token" in data else '',
+            "access_token": data["access_token"] if "access_token" in data else "",
+            "refresh_token": data["refresh_token"] if "refresh_token" in data else "",
         }
         if "password" in data:
             db_obj.setdefault("hashed_password", get_password_hash(data["password"]))
@@ -39,9 +38,8 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return user
 
     async def update(
-            self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
+        self, db: Session, *, db_obj: User, obj_in: Union[UserUpdate, Dict[str, Any]]
     ) -> User:
-
         update_data = jsonable_encoder(obj_in)
 
         if "password" in update_data:  # type: ignore

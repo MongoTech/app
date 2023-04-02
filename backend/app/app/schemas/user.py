@@ -1,9 +1,8 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import EmailStr
-
 from app.schemas.base import Base
+from pydantic import EmailStr
 
 
 # Shared properties

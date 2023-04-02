@@ -5,11 +5,10 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 import emails  # type: ignore
-from emails.template import JinjaTemplate  # type: ignore
-from jose import jwt  # type: ignore
-
 from app import crud, schemas
 from app.core.config import settings
+from emails.template import JinjaTemplate  # type: ignore
+from jose import jwt  # type: ignore
 
 
 def send_email(
@@ -59,17 +58,18 @@ def send_reset_password_email(email_to: str, email: str, token: str) -> None:
 
 async def create_confirmation_token(db, user, email):
     token = hashlib.md5(user["id"].encode()).hexdigest()
-    confirm = schemas.ConfirmCreate(user_id=user["id"],
-                                    email=email,
-                                    token=token,
-                                    ttl=datetime.now() + timedelta(minutes=1))
+    confirm = schemas.ConfirmCreate(
+        user_id=user["id"],
+        email=email,
+        token=token,
+        ttl=datetime.now() + timedelta(minutes=1),
+    )
     token = await crud.confirm.create(db=db, obj_in=confirm)
     send_welcome_email(user["email"], user["full_name"], token=token["token"])
 
 
 def send_welcome_email(email_to: str, full_name: str, token: str) -> None:
-
-    subject = f"Congratulation you register account on MongoTech"
+    subject = "Congratulation you register account on MongoTech"
     with open(Path(settings.EMAIL_TEMPLATES_DIR) / "welcome.html") as f:
         template_str = f.read()
 
@@ -79,7 +79,7 @@ def send_welcome_email(email_to: str, full_name: str, token: str) -> None:
         html_template=template_str,
         environment={
             "full_name": full_name,
-            "link":  settings.SERVER_HOST + "/api/users/activate?token=" + token
+            "link": settings.SERVER_HOST + "/api/users/activate?token=" + token,
         },
     )
 

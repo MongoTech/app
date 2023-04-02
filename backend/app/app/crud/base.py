@@ -1,12 +1,11 @@
 from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
 
+from app.db.base_class import Base
 from bson.objectid import ObjectId  # type: ignore
 from fastapi.encoders import jsonable_encoder
 from motor.motor_asyncio import AsyncIOMotorClient  # type: ignore
 from pydantic import BaseModel
 from sqlalchemy.orm import Session  # type: ignore
-
-from app.db.base_class import Base
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
@@ -29,7 +28,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return await db[self.model.__tablename__].count_documents({})
 
     async def get_multi(
-            self, db: Session, *, skip: int = 0, limit: int = 100
+        self, db: Session, *, skip: int = 0, limit: int = 100
     ) -> List[ModelType]:
         result = []
         async for document in db[self.model.__tablename__].find().skip(skip).limit(limit):  # type: ignore
@@ -51,7 +50,11 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return user
 
     async def update(
-            self, db: Session, *, db_obj: ModelType, obj_in: Union[UpdateSchemaType, Dict[str, Any]]
+        self,
+        db: Session,
+        *,
+        db_obj: ModelType,
+        obj_in: Union[UpdateSchemaType, Dict[str, Any]]
     ) -> ModelType:
         obj_in = jsonable_encoder(obj_in)
 
@@ -64,4 +67,3 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     async def remove(self, db: AsyncIOMotorClient, id: str) -> None:
         id = ObjectId(id) if type(id) == str else id
         await db[self.model.__tablename__].delete_one({"_id": id})
-

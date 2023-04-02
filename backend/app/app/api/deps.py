@@ -1,15 +1,14 @@
 from typing import Generator
 
+from app import crud, models
+from app.core import security
+from app.core.config import settings
+from app.db.session import client, database
 from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt  # type: ignore
 from pydantic import ValidationError
 from sqlalchemy.orm import Session  # type: ignore
-
-from app import crud, models
-from app.core import security
-from app.core.config import settings
-from app.db.session import client, database
 
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/login/access-token"
@@ -24,15 +23,15 @@ def get_db() -> Generator:
 
 
 async def get_current_user(
-    request: Request,
-    db: Session = Depends(get_db)
+    request: Request, db: Session = Depends(get_db)
 ) -> models.User:
-
     try:
         if "token" not in request.cookies:
             raise ValidationError
         payload = jwt.decode(
-            request.cookies["token"], settings.SECRET_KEY, algorithms=[security.ALGORITHM]
+            request.cookies["token"],
+            settings.SECRET_KEY,
+            algorithms=[security.ALGORITHM],
         )
         token_data = payload
     except (jwt.JWTError, ValidationError) as e:
@@ -50,7 +49,6 @@ async def get_current_user(
 def get_current_active_user(
     current_user: models.User = Depends(get_current_user),
 ) -> models.User:
-
     return current_user
 
 

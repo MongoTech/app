@@ -1,6 +1,5 @@
-from sqlalchemy import Boolean, Column, String  # type: ignore
-
 from app.db.base_class import Base
+from sqlalchemy import Boolean, Column, String  # type: ignore
 
 
 class User(Base):

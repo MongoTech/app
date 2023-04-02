@@ -1,14 +1,13 @@
 import random
 from typing import Any, Dict, Union
 
-from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session  # type: ignore
-
 from app import crud
 from app.core.config import settings
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
 from app.tests.utils.utils import random_email, random_lower_string
+from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session  # type: ignore
 
 
 def user_authentication_headers(
