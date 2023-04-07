@@ -11,7 +11,7 @@
             "program": "/home/dg/web/mongotech/backend/app/app/main.py",
             "cwd": "/home/dg/web/mongotech",
             "console": "integratedTerminal",
-            "justMyCode": true,
+            "justMyCode": false,
             "envFile": "${workspaceFolder}/.env.local"
         }
     ]

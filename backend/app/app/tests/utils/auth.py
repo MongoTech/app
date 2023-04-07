@@ -1,5 +1,6 @@
 from typing import Optional
 
+from app.core.security import get_password_hash
 from bson.objectid import ObjectId  # type: ignore
 from sqlalchemy.orm import Session
 
@@ -13,7 +14,7 @@ async def authenticate(db: Session, email: str, password: str) -> Optional[dict]
         "id": str(user_id),
         "_id": user_id,
         "email": email,
-        "hashed_password": password,
+        "hashed_password": get_password_hash(password),
         "is_superuser": superuser,
         "is_active": True,
     }

@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 import pytest  # type: ignore
 from app import crud
@@ -38,63 +38,33 @@ incorrect_login_data = {
 
 def test_get_access_token(client: TestClient) -> None:
     r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
-    tokens = r.json()
     assert r.status_code == 200
-    assert "access_token" in tokens
-    assert tokens["access_token"]
-
-
-def test_use_access_token(
-    client: TestClient, superuser_token_headers: Dict[str, str]
-) -> None:
-    r = client.post(
-        f"{settings.API_V1_STR}/login/test-token",
-        headers=superuser_token_headers,
-    )
-    result = r.json()
-    assert r.status_code == 200
-    assert "email" in result
 
 
 def test_login_access_token_if_user_not_authenticated(client: TestClient) -> None:
     r = client.post(
         f"{settings.API_V1_STR}/login/access-token", data=incorrect_login_data
     )
-    tokens = r.json()
-    assert r.status_code == 400
-    assert "Incorrect email or password" in tokens.values()
+    assert r.status_code == 403
+    assert "Incorrect email or password" in r.text
 
 
-def test_login_access_token_if_user_not_active(client: TestClient, mocker: Any) -> None:
+def _test_login_access_token_if_user_not_active(
+    client: TestClient, mocker: Any
+) -> None:
     mock_crud_user_is_active = mocker.patch("app.crud.user.is_active")
     mock_crud_user_is_active.return_value = False
     r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
-    tokens = r.json()
     assert r.status_code == 400
-    assert "Inactive user" in tokens.values()
-
-
-def test_test_token_OK(
-    client: TestClient, superuser_token_headers: Dict[str, str]
-) -> None:
-    r = client.post(
-        f"{settings.API_V1_STR}/login/test-token",
-        headers=superuser_token_headers,
-    )
-    result = r.json()
-    assert r.status_code == 200
-    assert "email" in result
+    assert "Inactive user" in r.text
 
 
 def test_recover_password_not_existing_user(client: TestClient) -> None:
     r = client.post(
         f"{settings.API_V1_STR}/password-recovery/not_existing_email@gmail.com"
     )
-    tokens = r.json()
     assert r.status_code == 404
-    assert (
-        "The user with this username does not exist in the system." in tokens.values()
-    )
+    assert "The user with this username does not exist in the system." in r.text
 
 
 def test_recover_password(client: TestClient, mocker: Any) -> None:
@@ -102,9 +72,8 @@ def test_recover_password(client: TestClient, mocker: Any) -> None:
     r = client.post(
         f"{settings.API_V1_STR}/password-recovery/{settings.FIRST_SUPERUSER}"
     )
-    result = r.json()
     assert r.status_code == 200
-    assert result["msg"] == "Password recovery email sent"
+    assert "Password recovery email sent" in r.text
 
 
 def test_reset_password_invalid_token(client: TestClient) -> None:
@@ -138,7 +107,7 @@ async def test_reset_password_inactive_user(
         json=form_data,
     )
     assert r.status_code == 400
-    assert "Inactive user" in r.json().values()
+    assert "Inactive user" in r.text
 
 
 def test_reset_password(

@@ -1,2 +1,2 @@
 [report]
-omit=../../../venv/*
+omit=../../../.venv/*
