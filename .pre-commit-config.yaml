@@ -28,6 +28,7 @@ repos:
         entry: bandit .
         language: system
         pass_filenames: false
+        args: [--recursive]
   - repo: local
     hooks:
      - id: mypy

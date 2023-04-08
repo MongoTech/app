@@ -119,7 +119,7 @@ async def login_access_token(
     )
     response.status_code = 200
 
-    return {"access_token": token, "token_type": "bearer", "user": user["email"]}  # type: ignore
+    return {"access_token": token, "token_type": "bearer", "user": user.get("email")}  # type: ignore
 
 
 @router.post("/password-recovery/{email}", response_model=schemas.Msg)
