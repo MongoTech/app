@@ -109,16 +109,17 @@ async def login_access_token(
         raise HTTPException(status_code=403, detail="Incorrect email or password")
 
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    token = security.create_access_token(
+        user["_id"], expires_delta=access_token_expires  # type: ignore
+    )
     response.set_cookie(
         key="token",
-        value=security.create_access_token(
-            user["_id"], expires_delta=access_token_expires  # type: ignore
-        ),
+        value=token,
         expires=access_token_expires,  # type: ignore
     )
     response.status_code = 200
 
-    return response
+    return {"access_token": token, "token_type": "bearer", "user": user["email"]}  # type: ignore
 
 
 @router.post("/password-recovery/{email}", response_model=schemas.Msg)

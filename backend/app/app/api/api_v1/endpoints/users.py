@@ -20,6 +20,7 @@ router = APIRouter()
 async def pagination(  # type: ignore
     per_page=10,
     db: Session = Depends(deps.get_db),
+    current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     count = await crud.user.count(db=db)
     return math.ceil(count / per_page)
@@ -74,7 +75,7 @@ async def create_user(
     *,
     db: Session = Depends(deps.get_db),
     user_in: schemas.UserCreate,
-    current_user: models.User = Depends(deps.get_current_active_superuser),  # noqa
+    current_user: models.User = Depends(deps.get_current_active_user),  # noqa
 ) -> Any:
     """
     Create new user.
@@ -131,7 +132,7 @@ async def read_user_me(
 @router.get("/stats", response_model=Any)
 async def stat(
     db: Session = Depends(deps.get_db),
-    current_user: models.User = Depends(deps.get_current_active_user),  # noqa
+    current_user: models.User = Depends(deps.get_current_active_superuser),  # noqa
 ) -> Any:
     """
     Retrieve users.
@@ -151,10 +152,10 @@ async def read_user_by_id(
     user = await crud.user.get(db, id=user_id)  # type: ignore
     if user["email"] == current_user["email"]:  # type: ignore
         return user
-    if not crud.user.is_superuser(current_user):
-        raise HTTPException(
-            status_code=400, detail="The user doesn't have enough privileges"
-        )
+    # if not crud.user.is_superuser(current_user):
+    #     raise HTTPException(
+    #         status_code=400, detail="The user doesn't have enough privileges"
+    #     )
     return user
 
 
@@ -164,7 +165,7 @@ async def update_user(
     db: Session = Depends(deps.get_db),
     user_id: str,
     user_in: schemas.UserUpdate,
-    current_user: models.User = Depends(deps.get_current_active_superuser),  # noqa
+    current_user: models.User = Depends(deps.get_current_active_user),  # noqa
 ) -> Any:
     """
     Update a user.

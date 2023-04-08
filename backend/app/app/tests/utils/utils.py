@@ -20,4 +20,4 @@ async def get_superuser_token_headers(client: TestClient) -> Dict[str, str]:
         "password": settings.FIRST_SUPERUSER_PASSWORD,
     }
     r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
-    return r  # type: ignore
+    return r.json()  # type: ignore

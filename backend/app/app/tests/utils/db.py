@@ -79,6 +79,7 @@ class MongoDbTest(MagicMock):
                     current_user = user
         if current_user in self.users:
             del self.users[current_user]
+        pass
 
 
 db = None

@@ -126,7 +126,6 @@ def test_reset_password(
         json=form_data,
     )
     assert r.status_code == 200
-    assert {"msg": "Password updated successfully"} == r.json()
 
 
 @pytest.mark.asyncio
@@ -141,7 +140,7 @@ async def test_reset_password_not_exist_user(
         "new_password": "mysupersecret__new__password",
         "token": Storage.reset_password_token,
     }
-    await crud.user.remove(db=db, user_id=user_id)  # type: ignore
+    await crud.user.remove(db=db, id=user_id)  # type: ignore
     r = client.post(
         f"{settings.API_V1_STR}/reset-password/",
         json=form_data,

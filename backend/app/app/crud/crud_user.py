@@ -54,7 +54,9 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         elif type(obj_in) == dict and "confirmed" in obj_in:
             update_data["confirmed"] = obj_in["confirmed"]
 
-        user_id = db_obj["_id"] if db_obj["_id"] else ObjectId(db_obj["id"])  # type: ignore
+        user_id = db_obj["id"] if db_obj["id"] else ObjectId(db_obj["id"])  # type: ignore
+        if not user_id:
+            user_id = db_obj["_id"] if db_obj["_id"] else ObjectId(db_obj["id"])  # type: ignore
         await db["users"].update_one({"_id": user_id}, {"$set": update_data})  # type: ignore
         user = await db["users"].find_one({"_id": user_id})  # type: ignore
         user["id"] = str(user["_id"])

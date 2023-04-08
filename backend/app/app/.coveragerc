@@ -1,2 +1,3 @@
-[report]
-omit=../../../.venv/*
+[run]
+omit = ./tests
+branch = True
