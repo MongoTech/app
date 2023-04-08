@@ -1,6 +1,2 @@
 [bandit]
-targets = .
-recursive = True
-exclude = backend/app/app/tests, .venv
-confidence = HIGH
-severity = HIGH
+exclude = .venv

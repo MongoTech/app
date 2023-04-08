@@ -13,4 +13,5 @@ jobs:
     - uses: actions/checkout@v2
     - uses: jpetrucciani/bandit-check@master
       with:
-        bandit_flags: '--ini .bandit'
+        path: "./backend/app/app"
+        bandit_flags: '-x ./backend/app/app/tests -iii -lll'
