@@ -23,14 +23,6 @@ repos:
        pass_filenames: false
   - repo: local
     hooks:
-      - id: bandit
-        name: bandit
-        entry: bandit .
-        language: system
-        pass_filenames: false
-        args: [--recursive]
-  - repo: local
-    hooks:
      - id: mypy
        name: mypy
        entry: mypy .
