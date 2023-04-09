@@ -1,6 +1,8 @@
 .venv
 .idea
-.vscode
-.mypy_cache
-docker-stack.yml
 frontent/node_modules
+__pycache__
+app.egg-info
+.mypy_cache
+.coverage
+htmlcov

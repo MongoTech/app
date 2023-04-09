@@ -1,0 +1,41 @@
+@import './base/base';
+@import './layout/layout';
+@import './module/module';
+@import './theme/theme';
+
+.modal-header .close {
+  display: none;
+}
+
+h1, h3 {
+  margin: 20px;
+}
+
+.google-btn {
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500!important;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: white;
+  background-color: #0F9D58;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  height: 36px;
+  padding: 0 16px !important;
+  cursor: pointer;
+}
+
+.google-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.google-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.3);
+}

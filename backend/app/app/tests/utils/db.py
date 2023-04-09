@@ -1,10 +1,10 @@
 from typing import Any, Optional
 from unittest.mock import MagicMock
 
+from app.core.config import settings
+from app.core.security import get_password_hash
 from bson.objectid import ObjectId  # type: ignore
 from sqlalchemy.orm import Session
-
-from app.core.config import settings
 
 first_user_id = ObjectId()
 
@@ -18,7 +18,7 @@ class MongoDbTest(MagicMock):
             "id": str(first_user_id),
             "_id": first_user_id,
             "email": settings.FIRST_SUPERUSER,
-            "hashed_password": "$2b$12$mLRl07VnztvwkE36I0kC1uLiwalJ39mew.A2PKc1g0MRkf1AtdGD6",  # noqa
+            "hashed_password": get_password_hash(settings.FIRST_SUPERUSER_PASSWORD),
             "is_superuser": True,
             "is_active": True,
         }
@@ -79,6 +79,7 @@ class MongoDbTest(MagicMock):
                     current_user = user
         if current_user in self.users:
             del self.users[current_user]
+        pass
 
 
 db = None

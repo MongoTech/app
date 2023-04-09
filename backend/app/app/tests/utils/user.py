@@ -1,14 +1,13 @@
 import random
 from typing import Any, Dict, Union
 
-from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session  # type: ignore
-
 from app import crud
 from app.core.config import settings
 from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
 from app.tests.utils.utils import random_email, random_lower_string
+from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session  # type: ignore
 
 
 def user_authentication_headers(
@@ -76,7 +75,7 @@ async def authentication_token_from_email(
     password = random_lower_string()
     user = await crud.user.get_by_email(db, email=email)
     if not user:
-        user_in_create = UserCreate(username=email, email=email, password=password)
+        user_in_create = UserCreate(username=email, email=email, password=password)  # type: ignore
         user = await crud.user.create(db, obj_in=user_in_create)  # type: ignore
     else:
         user_in_update = UserUpdate(password=password)

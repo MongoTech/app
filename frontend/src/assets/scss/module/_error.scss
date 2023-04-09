@@ -1,0 +1,25 @@
+.error-page h2 {
+  font-size: 250px;
+  font-weight: 700;
+  margin-bottom: 0;
+  line-height: 1;
+}
+.error-page p {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+.error-page a {
+  border: 1px solid #e0e3eb;
+  display: inline-block;
+  padding: 11px 30px 8px;
+  color: #4a4a4a;
+  transition: .3s;
+}
+.error-page a:hover {
+  background: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+}
+.error-page a i {
+  margin-left: 10px;
+}

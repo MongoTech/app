@@ -1,0 +1,56 @@
+.form-access form {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 14px -6px;
+  border-radius: 5px;
+  padding: 30px;
+  border: 1px solid #f2f4f9;
+  min-width: 350px;
+}
+.form-access .form-group input,
+.form-access input {
+  border: 1px solid #e0e3eb;
+  height: 45px;
+  color: #18214d;
+  font-size: 14px;
+}
+.form-access .form-group input:focus {
+  box-shadow: none;
+}
+.form-access a:hover {
+  text-decoration: none;
+}
+.form-access span {
+  text-align: center;
+  display: block;
+  font-size: 22px;
+  margin-bottom: 15px;
+  margin-top: -5px;
+  font-weight: 600;
+}
+.form-access .text-right {
+  margin-top: -5px;
+  font-weight: 600;
+}
+
+.form-access button {
+  width: 100%;
+  padding: 12px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.form-access .custom-control-label::before,
+.form-access .custom-control-label::after {
+  top: 2px;
+}
+.form-access .custom-control-label::before {
+  border: #cbd2df solid 1px;
+}
+
+.form-access h2 {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 20px;
+}
+.form-access h2 a {
+  font-weight: 600;
+}
