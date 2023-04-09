@@ -22,7 +22,7 @@ jobs:
         poetry install
     - name: Build coverage percentage
       run: |
-        echo COVERAGE=$(export $(cat .env.local|xargs);cd backend/app/app;../../../venv/bin/pytest --cache-clear --cov --cov-report term | grep "TOTAL" | awk '{print $4}') >> $GITHUB_ENV
+        echo COVERAGE=$(export $(cat .env.local|xargs);cd backend/app/app;../../../venv/bin/pytest --cache-clear --cov --cov-report term | grep "TOTAL" | awk '{print $6}') >> $GITHUB_ENV
     - name: Create coverage Badge
       uses: schneegans/dynamic-badges-action@v1.4.0
       with:
